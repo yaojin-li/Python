@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: post
+Version: 1.0.2
+Summary: http POST dict
+Home-page: https://github.com/looking-for-a-job/post.py
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: POST dict with http request variables
+Platform: UNKNOWN
+Description-Content-Type: text/markdown

@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: get
+Version: 1.0.3
+Summary: http GET dict
+Home-page: https://github.com/looking-for-a-job/get.py
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: GET dict with http request variables
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
