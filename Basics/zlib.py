@@ -1,16 +1,16 @@
 """
- !/usr/bin/python3
+ !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 压缩解压
  --------------------------------------
  @File    	  : zlib.py
  @Time    	  : 2018/8/25 22:10
  @Software	  : PyCharm
  --------------------------------------
- @Description : 
- --------------------------------------
  @Author  	  : lixj
- @Email	  	  : lixj_zj@163.com
-
+ @Contact	  : lixj_zj@163.com
+ --------------------------------------
 """
 
 import zlib

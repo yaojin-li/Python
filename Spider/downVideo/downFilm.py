@@ -1,20 +1,17 @@
 """
- !/usr/bin/python3
+ !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
  --------------------------------------
- @File    	  : downFilm.py
- @Time    	  : 2018/8/26 0:28
- @Software	  : PyCharm
+ @Description : 下载VIP视频
  --------------------------------------
- @Description : 
+ @File        : downFilm.py
+ @Time        : 2018/8/26 0:28
+ @Software    : PyCharm
  --------------------------------------
- @Author  	  : lixj
- @Email	  	  : lixj_zj@163.com
-
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
 """
-
-# -*- coding:utf-8 -*-
-#
 
 '''
 IPO：

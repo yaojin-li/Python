@@ -1,10 +1,17 @@
-# /usr/bin/python3
-# -*- coding: utf-8 -*-
-# @Time    : 2018/5/5 22:07
-# @Author  : lenovo
-# @File    : get_userAgent.py
-# @Software: PyCharm
-# @Description :
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 获取爬虫用户权限
+ --------------------------------------
+ @File        : get_userAgent.py
+ @Time        : 2018/5/5 22:07
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
 
 import random
 

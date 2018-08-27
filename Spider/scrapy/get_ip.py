@@ -1,10 +1,17 @@
-# /usr/bin/python3
-# -*- coding: utf-8 -*-
-# @Time    : 2018/5/5 13:39
-# @Author  : lenovo
-# @File    : get_ip.py
-# @Software: PyCharm
-# @Description :
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 获取代理IP
+ --------------------------------------
+ @File        : get_ip.py
+ @Time        : 2018/5/5 13:39
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
 
 """
 1. bs解析页面，将提取到的代理交给队列

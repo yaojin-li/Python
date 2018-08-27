@@ -1,3 +1,18 @@
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 数据处理
+ --------------------------------------
+ @File        : cleanData.py
+ @Time        : 2018/8/25 16:33
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
+
 import re
 
 def cleanData(HTMLDic):

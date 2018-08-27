@@ -1,17 +1,18 @@
 """
- !/usr/bin/python3
+ !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
- --------------------------------------
- @File    	  : getMeiziImage.py
- @Time    	  : 2018/8/26 0:23
- @Software	  : PyCharm
  --------------------------------------
  @Description : 多线程爬取网站图片
  --------------------------------------
- @Author  	  : lixj
- @Email	  	  : lixj_zj@163.com
-
+ @File        : getMeiziImage.py
+ @Time        : 2018/8/26 0:23
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
 """
+
 import requests
 from bs4 import BeautifulSoup
 import os

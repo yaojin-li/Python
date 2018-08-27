@@ -1,9 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @Time    : 2018/4/26 16:55
-# @Author  : lxj1
-# @File    : getDynamicCon.py
-# @Software: PyCharm
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : selenium获取页面动态内容
+ --------------------------------------
+ @File        : getDynamicCon.py
+ @Time        : 2018/4/26 16:55
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -12,10 +20,13 @@ from bs4 import BeautifulSoup as bs
 from pandas import DataFrame
 import time
 
+
 ## 1. 动态抓取页面
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
+
+
 ## 2. 更改user-agent
 # chrome_options.add_argument('--user-agent=Mozilla/5.0 (iPad; CPU OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3')
 # chrome_options.add_argument('--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3')
@@ -36,13 +47,13 @@ print(len(data))
 # 获取网页截图
 # driver.save_screenshot("./screenshot/1.png")
 
+
 ## 3. 保存爬取内容到本地分析！
 with open("./page_source.txt", "w", encoding="utf-8") as f:
     f.write(driver.page_source)
 
 driver.quit()
 
-# ----------------------------------------------------------------------------------------------
 
 ## 4. 分析
 page_source = ''    # 本地文件内容代替爬取结果str类型

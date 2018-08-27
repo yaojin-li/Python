@@ -1,9 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# @Time    : 2018/4/24 16:51
-# @Author  : lxj1
-# @File    : blockchain.py
-# @Software: PyCharm
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 模拟区块链结点1
+ --------------------------------------
+ @File        : blockchain_node1.py
+ @Time        : 2018/4/24 16:51
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
 
 import hashlib
 import json

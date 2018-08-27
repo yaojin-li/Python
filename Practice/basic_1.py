@@ -1,16 +1,16 @@
 """
- !/usr/bin/python3
+ !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
- --------------------------------------
- @File    	  : basic_1.py
- @Time    	  : 2018/8/25 12:28
- @Software	  : PyCharm
  --------------------------------------
  @Description : 输入四个整数从大到小排序
  --------------------------------------
- @Author  	  : lixj
- @Email	  	  : lixj_zj@163.com
-
+ @File        : basic_1.py
+ @Time        : 2018/8/25 12:28
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
 """
 
 # 获取输入数值

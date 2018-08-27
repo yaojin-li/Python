@@ -1,4 +1,17 @@
-# 爬取电影影评
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 爬取电影影评
+ --------------------------------------
+ @File        : film.py
+ @Time        : 
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
 
 '''
 requests+bs4+jieba

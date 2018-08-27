@@ -1,10 +1,17 @@
-# /usr/bin/python3
-# -*- coding: utf-8 -*-
-# @Time    : 2018/4/16 15:55
-# @Author  : lenovo
-# @File    : getMaxSum.py
-# @Software: PyCharm
-# @Description : 寻找数组的最大子列和，从第一个位置起，时间复杂度为O(N)
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 寻找数组的最大子列和，从第一个位置起，时间复杂度为O(N)
+ --------------------------------------
+ @File        : getMaxSum.py
+ @Time        : 2018/4/16 15:55
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
 
 def maxSubseqSum(A):
     thisSum, maxSum = 0, 0

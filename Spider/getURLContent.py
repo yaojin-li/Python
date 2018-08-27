@@ -1,18 +1,17 @@
 """
- !/usr/bin/python3
+ !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
  --------------------------------------
- @File    	  : getURLContent.py
- @Time    	  : 2018/8/26 16:10
- @Software	  : PyCharm
+ @Description : 获取接口资讯数据
  --------------------------------------
- @Description :
+ @File        : getURLContent.py
+ @Time        : 2018/8/26 16:10
+ @Software    : PyCharm
  --------------------------------------
- @Author  	  : lixj
- @Email	  	  : lixj_zj@163.com
-
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
 """
-
 
 import requests
 from lxml import etree

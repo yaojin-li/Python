@@ -2,15 +2,15 @@
  !/usr/bin/python3
  -*- coding: utf-8 -*-
  --------------------------------------
- @File    	  : wordCloud_chart.py
+ @File    	  : wordCloud.py
  @Time    	  : 2018/8/26 0:37
  @Software	  : PyCharm
  --------------------------------------
  @Description : 
  --------------------------------------
  @Author  	  : lixj
- @Email	  	  : lixj_zj@163.com
-
+ @Contact  	  : lixj_zj@163.com
+ --------------------------------------
 """
 
 # WordCloud + 统计图表

@@ -1,4 +1,18 @@
-# 获取豆瓣影评
+"""
+ !/usr/bin/env python3.6
+ -*- coding: utf-8 -*-
+ --------------------------------------
+ @Description : 获取豆瓣影评
+ --------------------------------------
+ @File        : filmComments.py
+ @Time        : 
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
+ --------------------------------------
+"""
+
 
 """
 requests + Xpath + pandas + MongoDB
