@@ -1,0 +1,310 @@
+Metadata-Version: 2.1
+Name: aiohttp
+Version: 3.4.0
+Summary: Async http client/server framework (asyncio)
+Home-page: https://github.com/aio-libs/aiohttp
+Author: Nikolay Kim
+Author-email: fafhrd91@gmail.com
+Maintainer: Nikolay Kim <fafhrd91@gmail.com>, Andrew Svetlov <andrew.svetlov@gmail.com>
+Maintainer-email: aio-libs@googlegroups.com
+License: Apache 2
+Project-URL: Chat: Gitter, https://gitter.im/aio-libs/Lobby
+Project-URL: CI: AppVeyor, https://ci.appveyor.com/project/aio-libs/aiohttp
+Project-URL: CI: Circle, https://circleci.com/gh/aio-libs/aiohttp
+Project-URL: CI: Shippable, https://app.shippable.com/github/aio-libs/aiohttp
+Project-URL: CI: Travis, https://travis-ci.com/aio-libs/aiohttp
+Project-URL: Coverage: codecov, https://codecov.io/github/aio-libs/aiohttp
+Project-URL: Docs: RTD, https://docs.aiohttp.org
+Project-URL: GitHub: issues, https://github.com/aio-libs/aiohttp/issues
+Project-URL: GitHub: repo, https://github.com/aio-libs/aiohttp
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Framework :: AsyncIO
+Requires-Python: >=3.5.3
+Requires-Dist: attrs (>=17.3.0)
+Requires-Dist: chardet (<4.0,>=2.0)
+Requires-Dist: multidict (<5.0,>=4.0)
+Requires-Dist: async-timeout (<4.0,>=3.0)
+Requires-Dist: yarl (<2.0,>=1.0)
+Requires-Dist: idna-ssl (>=1.0); python_version < "3.7"
+
+==================================
+Async http client/server framework
+==================================
+
+.. image:: https://raw.githubusercontent.com/aio-libs/aiohttp/master/docs/_static/aiohttp-icon-128x128.png
+   :height: 64px
+   :width: 64px
+   :alt: aiohttp logo
+
+|
+
+.. image:: https://travis-ci.com/aio-libs/aiohttp.svg?branch=master
+   :target: https://travis-ci.com/aio-libs/aiohttp
+   :align: right
+   :alt: Travis status for master branch
+
+.. image:: https://ci.appveyor.com/api/projects/status/tnddy9k6pphl8w7k/branch/master?svg=true
+   :target: https://ci.appveyor.com/project/aio-libs/aiohttp
+   :align: right
+   :alt: AppVeyor status for master branch
+
+.. image:: https://codecov.io/gh/aio-libs/aiohttp/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/aio-libs/aiohttp
+   :alt: codecov.io status for master branch
+
+.. image:: https://badge.fury.io/py/aiohttp.svg
+   :target: https://pypi.org/project/aiohttp
+   :alt: Latest PyPI package version
+
+.. image:: https://readthedocs.org/projects/aiohttp/badge/?version=latest
+   :target: http://docs.aiohttp.org/
+   :alt: Latest Read The Docs
+
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+    :target: https://gitter.im/aio-libs/Lobby
+    :alt: Chat on Gitter
+
+Key Features
+============
+
+- Supports both client and server side of HTTP protocol.
+- Supports both client and server Web-Sockets out-of-the-box without the
+  Callback Hell.
+- Web-server has middlewares and pluggable routing.
+
+
+Getting started
+===============
+
+Client
+------
+
+To retrieve something from the web:
+
+.. code-block:: python
+
+  import aiohttp
+  import asyncio
+
+  async def fetch(session, url):
+      async with session.get(url) as response:
+          return await response.text()
+
+  async def main():
+      async with aiohttp.ClientSession() as session:
+          html = await fetch(session, 'http://python.org')
+          print(html)
+
+  if __name__ == '__main__':
+      loop = asyncio.get_event_loop()
+      loop.run_until_complete(main())
+
+
+Server
+------
+
+This is simple usage example:
+
+.. code-block:: python
+
+    from aiohttp import web
+
+    async def handle(request):
+        name = request.match_info.get('name', "Anonymous")
+        text = "Hello, " + name
+        return web.Response(text=text)
+
+    async def wshandle(request):
+        ws = web.WebSocketResponse()
+        await ws.prepare(request)
+
+        async for msg in ws:
+            if msg.type == web.WSMsgType.text:
+                await ws.send_str("Hello, {}".format(msg.data))
+            elif msg.type == web.WSMsgType.binary:
+                await ws.send_bytes(msg.data)
+            elif msg.type == web.WSMsgType.close:
+                break
+
+        return ws
+
+
+    app = web.Application()
+    app.add_routes([web.get('/', handle),
+                    web.get('/echo', wshandle),
+                    web.get('/{name}', handle)])
+
+    web.run_app(app)
+
+
+Documentation
+=============
+
+https://aiohttp.readthedocs.io/
+
+
+Demos
+=====
+
+https://github.com/aio-libs/aiohttp-demos
+
+
+External links
+==============
+
+* `Third party libraries
+  <http://aiohttp.readthedocs.io/en/latest/third_party.html>`_
+* `Built with aiohttp
+  <http://aiohttp.readthedocs.io/en/latest/built_with.html>`_
+* `Powered by aiohttp
+  <http://aiohttp.readthedocs.io/en/latest/powered_by.html>`_
+
+Feel free to make a Pull Request for adding your link to these pages!
+
+
+Communication channels
+======================
+
+*aio-libs* google group: https://groups.google.com/forum/#!forum/aio-libs
+
+Feel free to post your questions and ideas here.
+
+*gitter chat* https://gitter.im/aio-libs/Lobby
+
+We support `Stack Overflow
+<https://stackoverflow.com/questions/tagged/aiohttp>`_.
+Please add *aiohttp* tag to your question there.
+
+Requirements
+============
+
+- Python >= 3.5.3
+- async-timeout_
+- attrs_
+- chardet_
+- multidict_
+- yarl_
+
+Optionally you may install the cChardet_ and aiodns_ libraries (highly
+recommended for sake of speed).
+
+.. _chardet: https://pypi.python.org/pypi/chardet
+.. _aiodns: https://pypi.python.org/pypi/aiodns
+.. _attrs: https://github.com/python-attrs/attrs
+.. _multidict: https://pypi.python.org/pypi/multidict
+.. _yarl: https://pypi.python.org/pypi/yarl
+.. _async-timeout: https://pypi.python.org/pypi/async_timeout
+.. _cChardet: https://pypi.python.org/pypi/cchardet
+
+License
+=======
+
+``aiohttp`` is offered under the Apache 2 license.
+
+
+Keepsafe
+========
+
+The aiohttp community would like to thank Keepsafe
+(https://www.getkeepsafe.com) for it's support in the early days of
+the project.
+
+
+Source code
+===========
+
+The latest developer version is available in a github repository:
+https://github.com/aio-libs/aiohttp
+
+Benchmarks
+==========
+
+If you are interested in by efficiency, AsyncIO community maintains a
+list of benchmarks on the official wiki:
+https://github.com/python/asyncio/wiki/Benchmarks
+
+=========
+Changelog
+=========
+
+..
+    You should *NOT* be adding new change log entries to this file, this
+    file is managed by towncrier. You *may* edit previous change logs to
+    fix problems like typo corrections or such.
+    To add a new change log entry, please see
+    https://pip.pypa.io/en/latest/development/#adding-a-news-entry
+    we named the news folder "changes".
+
+    WARNING: Don't drop the next directive!
+
+.. towncrier release notes start
+
+3.4.0 (2018-08-25)
+==================
+
+Features
+--------
+
+- Add type hints (`#3049 <https://github.com/aio-libs/aiohttp/pull/3049>`_)
+- Add ``raise_for_status`` request parameter (`#3073 <https://github.com/aio-libs/aiohttp/pull/3073>`_)
+- Add type hints to HTTP client (`#3092 <https://github.com/aio-libs/aiohttp/pull/3092>`_)
+- Minor server optimizations (`#3095 <https://github.com/aio-libs/aiohttp/pull/3095>`_)
+- Preserve the cause when `HTTPException` is raised from another exception. (`#3096 <https://github.com/aio-libs/aiohttp/pull/3096>`_)
+- Add `close_boundary` option in `MultipartWriter.write` method. Support streaming (`#3104 <https://github.com/aio-libs/aiohttp/pull/3104>`_)
+- Added a ``remove_slash`` option to the ``normalize_path_middleware`` factory. (`#3173 <https://github.com/aio-libs/aiohttp/pull/3173>`_)
+- The class `AbstractRouteDef` is importable from `aiohttp.web`. (`#3183 <https://github.com/aio-libs/aiohttp/pull/3183>`_)
+
+
+Bugfixes
+--------
+
+- Prevent double closing when client connection is released before the
+  last ``data_received()`` callback. (`#3031 <https://github.com/aio-libs/aiohttp/pull/3031>`_)
+- Make redirect with `normalize_path_middleware` work when using url encoded paths. (`#3051 <https://github.com/aio-libs/aiohttp/pull/3051>`_)
+- Postpone web task creation to connection establishment. (`#3052 <https://github.com/aio-libs/aiohttp/pull/3052>`_)
+- Fix ``sock_read`` timeout. (`#3053 <https://github.com/aio-libs/aiohttp/pull/3053>`_)
+- When using a server-request body as the `data=` argument of a client request, iterate over the content with `readany` instead of `readline` to avoid `Line too long` errors. (`#3054 <https://github.com/aio-libs/aiohttp/pull/3054>`_)
+- fix `UrlDispatcher` has no attribute `add_options`, add `web.options` (`#3062 <https://github.com/aio-libs/aiohttp/pull/3062>`_)
+- correct filename in content-disposition with multipart body (`#3064 <https://github.com/aio-libs/aiohttp/pull/3064>`_)
+- Many HTTP proxies has buggy keepalive support.
+  Let's not reuse connection but close it after processing every response. (`#3070 <https://github.com/aio-libs/aiohttp/pull/3070>`_)
+- raise 413 "Payload Too Large" rather than raising ValueError in request.post()
+  Add helpful debug message to 413 responses (`#3087 <https://github.com/aio-libs/aiohttp/pull/3087>`_)
+- Fix `StreamResponse` equality, now that they are `MutableMapping` objects. (`#3100 <https://github.com/aio-libs/aiohttp/pull/3100>`_)
+- Fix server request objects comparison (`#3116 <https://github.com/aio-libs/aiohttp/pull/3116>`_)
+- Do not hang on `206 Partial Content` response with `Content-Encoding: gzip` (`#3123 <https://github.com/aio-libs/aiohttp/pull/3123>`_)
+- Fix timeout precondition checkers (`#3145 <https://github.com/aio-libs/aiohttp/pull/3145>`_)
+
+
+Improved Documentation
+----------------------
+
+- Add a new FAQ entry that clarifies that you should not reuse response
+  objects in middleware functions. (`#3020 <https://github.com/aio-libs/aiohttp/pull/3020>`_)
+- Add FAQ section "Why is creating a ClientSession outside of an event loop dangerous?" (`#3072 <https://github.com/aio-libs/aiohttp/pull/3072>`_)
+- Fix link to Rambler (`#3115 <https://github.com/aio-libs/aiohttp/pull/3115>`_)
+- Fix TCPSite documentation on the Server Reference page. (`#3146 <https://github.com/aio-libs/aiohttp/pull/3146>`_)
+- Fix documentation build configuration file for Windows. (`#3147 <https://github.com/aio-libs/aiohttp/pull/3147>`_)
+- Remove no longer existing lingering_timeout parameter of Application.make_handler from documentation. (`#3151 <https://github.com/aio-libs/aiohttp/pull/3151>`_)
+- Mention that ``app.make_handler`` is deprecated, recommend to use runners
+  API instead. (`#3157 <https://github.com/aio-libs/aiohttp/pull/3157>`_)
+
+
+Deprecations and Removals
+-------------------------
+
+- Drop ``loop.current_task()`` from ``helpers.current_task()`` (`#2826 <https://github.com/aio-libs/aiohttp/pull/2826>`_)
+- Drop ``reader`` parameter from ``request.multipart()``. (`#3090 <https://github.com/aio-libs/aiohttp/pull/3090>`_)
+
