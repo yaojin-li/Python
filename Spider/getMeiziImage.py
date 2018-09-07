@@ -45,7 +45,6 @@ def get_MaxPage(href):
         print("获取最大页数异常！")
         traceback.print_exc()
 
-
 def re2title(string):
     result = re.sub(r'\*|\?|\？|\:|\：|\||\&|\$|\@|\>|\<|\""|\'\'|\“”|\\|\/', "", string)
     return result
@@ -91,7 +90,7 @@ def download(all_url, root_path, num):
 def main():
     all_url = 'http://www.mzitu.com/all'  # 爬取链接入口
     root_path = "E:\\mzitu"  # 本地存储根目录
-    num = 3  # 爬取个数-1
+    num = 4  # 爬取个数-1
 
     if not os.path.isdir(root_path):
         os.makedirs(root_path)
