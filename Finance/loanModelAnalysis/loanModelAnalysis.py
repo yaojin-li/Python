@@ -17,11 +17,21 @@
 """
 
 import matplotlib
+import pylab
+
 
 matplotlib.rcParams["font.sans-serif"] = ["SimHei"]
+matplotlib.rcParams['font.family'] = 'sans-serif'
 
-# 计算贷款额loan r(月利率) m(还款时间/月)
+
 def findPayment(loan, r, m):
+    '''
+    计算等额本息贷款的每月还款金额
+    :param loan:
+    :param r: 月利率
+    :param m: 还款时间/月
+    :return: 贷款额
+    '''
     return loan * ((r * (1 + r) ** m) / ((1 + r) ** m - 1))
 
 
