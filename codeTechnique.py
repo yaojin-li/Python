@@ -45,9 +45,36 @@ for num in nums:
     dict5[key].append(num)
 print(dict5)    # defaultdict(<class 'list'>, {1: ['1', '4'], 2: ['22', '55'], 3: ['233']})
 
+# 6.1. 合并字典
+dict6 = {'a':1}
+dict7 = {'b':2}
+dict6.update(dict7)
+print(dict6)        # {'a': 1, 'b': 2}
+
+# 6.2. 合并字典
+dict6 = {'a':1}
+dict7 = {'b':2}
+print({**dict6, **dict7})   # {'a': 1, 'b': 2}
+
+# 6.2. 合并字典  items() 以列表返回可遍历的元组数组
+dict6 = {'a':1}
+dict7 = {'b':2}
+print(dict(dict6.items() | dict7.items()))      # {'a': 1, 'b': 2}
+
+# 7.1. 通过值，排序字典元素
+dict8 = {'1':'z','22':'b','3':'c'}
+print(sorted(dict8, key=dict8.get))     # ['22', '3', '1']
+
+# 7.2. 通过键，排序字典元素---lambda x:x[1] 返回列表的第二个元素(b, c, z)
+dict9 = {'1':'z','22':'b','3':'c'}
+print(sorted(dict8.items(), key=lambda x:x[1]))     # [('22', 'b'), ('3', 'c'), ('1', 'z')]
+
+
+di = {'a':1,'b':2}
+print(list(di.items()))
 
 # =====================列表======================
-# 1. 嵌套list转一个list
+# 1.1. 嵌套list转一个list
 more2oneList = [1, [2, [3, 4]]]
 resList = []
 def fun(more2oneList):
@@ -59,16 +86,94 @@ def fun(more2oneList):
 fun(more2oneList)
 print(resList)  # [1, 2, 3, 4]
 
-# 2. 嵌套list转一个list
+# 1.2. 嵌套list转一个list
 more2oneList_ = [[[1,2],[100,101],[3]],[[7,8]]]
 print([z for x in more2oneList_ for y in x for z in y])  # [1, 2, 100, 101, 3, 7, 8]
 
-# 3. 统计列表元素个数
+# 2. 统计列表元素个数
 nums = [1, 2, 3, 4, 4, 3, 2, 5]
 dict4 = {}
 for num in nums:
     dict4[num] = dict4.get(num, 0) + 1
 print(dict4)    # {1: 1, 2: 2, 3: 2, 4: 2, 5: 1}
+
+# 3.1. 统计列表中频率最高的值---set()去重，max()取最大值，依据key是nums的个数
+nums = [1, 2, 3, 4, 4, 3, 2, 5, 1, 1]
+print(max(set(nums), key=nums.count))   # 1
+
+# 3.2. 统计列表中频率最高的值---采用counter()方法取频率最高的值
+from collections import Counter
+nums = [1, 2, 3, 4, 4, 3, 2, 5, 1, 1]
+nums_count = Counter(nums)
+print(nums_count.most_common(len(nums)))    # [(1, 3), (2, 2), (3, 2), (4, 2), (5, 1)]
+
+# 4. 序列对象连接（列表转字符串）
+strList = ['1', '2', '3']
+print(''.join(strList))
+
+# 5.1. 反转列表---切片
+numList = [1, 2, 4]
+print(numList[::-1])    # [4, 2, 1]
+
+# 5.2. 反转列表---reversed()
+numList = [1, 2, 4]
+for num in reversed(numList):
+    print(num)      # 4 2 1
+
+# 6. 列表最小值、最大值的索引---min(), max() --- __getitem__取值
+min_max = [1,3,5,10]
+print("minIndex: ", min(range(len(min_max)), key=min_max.__getitem__))    # 0
+print("maxIndex: ", max(range(len(min_max)), key=min_max.__getitem__))    # 3
+
+# 7.1. 移除重复元素---set()
+list_get_only = [1,2,3,4,4,4,2]
+print(list(set(list_get_only)))     # [1, 2, 3, 4]
+
+# 7.1. 移除重复元素---OrderedDict.fromkeys()
+from collections import OrderedDict
+list_get_only = [1,2,3,4,4,4,2]
+print(list(OrderedDict.fromkeys(list_get_only).keys()))     # [1, 2, 3, 4]
+
+# 8. 对相同位置的列表数据进行相加---map()返回迭代器
+add_muti_list = list(map(lambda x,y:x+y, [1,2,3], [4,5,6]))
+print(add_muti_list)
+
+
+
+
+# =====================字符串======================
+# 1. 检查两个字符串是不是由相同字母不同顺序组成
+from collections import Counter
+str1 = "123"
+str2 = "321"
+print(Counter(str1) == Counter(str2))   # Ture
+
+# 2.1. 反转字符串---切片
+str2 = "123456789"
+print(str[::-1])    # 987654321
+
+# 2.2. 反转字符串---reversed()
+str3 = "123456789"
+for oneChar in reversed(str):
+    print(''.join(oneChar))     # 987654321
+
+
+
+
+# =====================数组======================
+# 1. 数组转置---zip()用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表
+# 一个 * 传递位置参数（元组），两个 ** 传递关键字参数（字典）
+array = [['a', 'b'], ['c', 'd'], ['e', 'f']]
+print(list(zip(*array)))      # [('a', 'c', 'e'), ('b', 'd', 'f')]
+
+
+
+
+# =====================数值======================
+# 1. 反转数值
+num_reversed = 123456789
+print(int(str(num_reversed)[::-1]))
+
 
 
 
@@ -110,6 +215,7 @@ print(colors)   # deque(['test', 'red', 'blue', 'green'])
 
 
 
+
 # =====================类型转换======================
 # 1. 元组转字典
 tuple2list = ((1, 'a'), (2, 'b'))  # <class 'tuple'>
@@ -122,10 +228,13 @@ list2dict_res = {index : value for index, value in enumerate(list2dict)}
 print(list2dict_res)    # {0: 'a', 1: 'bb', 2: 'ccc'}
 
 
+
+
 # =====================输出======================
 # 1. 类似三目运算输出
 a = 2
 print('ok' if a==1 else 'ko')   # ko
+
 
 
 
@@ -141,6 +250,7 @@ print([x+1 if x>5 else x*10 for x in range(10)])    # [0, 10, 20, 30, 40, 50, 7,
 
 
 
+
 # =====================排序======================
 # 1. 排序
 import heapq
@@ -152,6 +262,7 @@ student = [{'names':'CC','height':189},
            {'names':'BB','height':169},
            {'names':'AA','height':199}]
 print(heapq.nsmallest(2,student,key=lambda x:x['height']))  # [{'names': 'BB', 'height': 169}, {'names': 'CC', 'height': 189}]
+
 
 
 
@@ -185,8 +296,13 @@ def find(seq, target):
 
 
 
+
 # =====================其他======================
 # 1. 交换变量
 a, b = 0, 1
 a, b = b, a
 print(a, b)
+
+# 2. 链式比较
+c = 2
+print(1 < c <3)
