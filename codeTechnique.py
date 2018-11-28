@@ -19,20 +19,21 @@
 # 1. 快速构建字典
 dict_zip = dict(zip('abcd', range(4)))
 
-# 2. 更新字典——1
+# 2.1. 更新字典
 dict1 = {'a':'1'}
 dict2 = {'b':'2', 'c':'3'}
 dictRes = dict(dict2, **dict1)  # 多参数添加字典
 print(dictRes)   # {'b': '2', 'c': '3', 'a': '1'}
-# 3. 更新字典——2
+
+# 2.2. 更新字典
 dict2.update(dict1)
 print(dict2) # {'b': '2', 'c': '3', 'a': '1'}
 
 # 4. 字典循环
-dict3 = {'1':'a','2':'b','13':'c'}
+dict3 = {'1':'a','2331':'b','13':'c'}
 for key in dict3:
     print(key)
-for key in dict3.keys():
+for key in dict3.keys():        # 只有当循环中需要更改key值的情况下，需要使用dict3.keys()
     if key.startswith('1'):
         print(dict3[key])
 
@@ -69,9 +70,28 @@ print(sorted(dict8, key=dict8.get))     # ['22', '3', '1']
 dict9 = {'1':'z','22':'b','3':'c'}
 print(sorted(dict8.items(), key=lambda x:x[1]))     # [('22', 'b'), ('3', 'c'), ('1', 'z')]
 
+# 8. 直接操作值
+dict1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
+double_dict = {key: value**2 for key, value in dict1.items()}
+print(double_dict)      # {'a': 1, 'b': 4, 'c': 9, 'd': 16, 'e': 25}
 
-di = {'a':1,'b':2}
-print(list(di.items()))
+# 9. 字典代替多个if else
+def fun(x):
+    if x == 'a':
+        return 1
+    elif x == 'b':
+        return 2
+    else:
+        return None
+
+def fun(x):
+    print({"a":1, "b":2}.get(x))    # 字典的get()方法
+
+# 10.
+
+
+
+
 
 # =====================列表======================
 # 1.1. 嵌套list转一个list
@@ -109,7 +129,7 @@ print(nums_count.most_common(len(nums)))    # [(1, 3), (2, 2), (3, 2), (4, 2), (
 
 # 4. 序列对象连接（列表转字符串）
 strList = ['1', '2', '3']
-print(''.join(strList))
+print(''.join(strList))     # 没有额外的内存分配
 
 # 5.1. 反转列表---切片
 numList = [1, 2, 4]
@@ -138,6 +158,35 @@ print(list(OrderedDict.fromkeys(list_get_only).keys()))     # [1, 2, 3, 4]
 add_muti_list = list(map(lambda x,y:x+y, [1,2,3], [4,5,6]))
 print(add_muti_list)
 
+# 9. 列表取值（高级拆包）
+getConFromList = ['David', '22', '000', 'Pythonista', '123']
+# Python 3 Only
+first, *others = getConFromList
+print(first, '---', *others)                # David --- 22 000 Pythonista 123
+first, *middle, last = getConFromList
+print(first, '---', *middle, '---', last)   # David --- 22 000 Pythonista --- 123
+
+# 10. 遍历列表及索引
+items = 'zero one two three'.split()
+for index, value in enumerate(items):
+    print(index, '-->', value)      # 0 --> zero    1 --> one    2 --> two    3 --> three
+
+# 11. 同时访问多列表--循环嵌套
+from itertools import product
+x_list = [1, 2]
+y_list = [3, 4]
+z_list = [5, 6]
+for x, y, z in product(x_list, y_list, z_list):
+    print(x, y, z)  # 返回product()中，每个元素的笛卡尔积的元组
+    # 1 3 5
+    # 1 3 6
+    # 1 4 5
+    # 1 4 6
+    # 2 3 5
+    # 2 3 6
+    # 2 4 5
+    # 2 4 6
+
 
 
 
@@ -146,7 +195,7 @@ print(add_muti_list)
 from collections import Counter
 str1 = "123"
 str2 = "321"
-print(Counter(str1) == Counter(str2))   # Ture
+print(Counter(str1) == Counter(str2))   # Tureend
 
 # 2.1. 反转字符串---切片
 str2 = "123456789"
@@ -157,6 +206,9 @@ str3 = "123456789"
 for oneChar in reversed(str):
     print(''.join(oneChar))     # 987654321
 
+# 3. 字符串格式化
+str4 = "test"
+print(f'{str4} just test!')     # test just test!
 
 
 
@@ -248,6 +300,15 @@ print([x for x in range(10) if x%2==0]) # [0, 2, 4, 6, 8]
 print([x for x in range(30) if x%2==0 and x%3==0])  # [0, 6, 12, 18, 24]
 print([x+1 if x>5 else x*10 for x in range(10)])    # [0, 10, 20, 30, 40, 50, 7, 8, 9, 10]
 
+# 3. 直接判断真伪
+if x:
+    pass
+if items:
+    pass
+
+# 4. 判断对象类型--多个指定的类型
+print(isinstance('a', (int, tuple)))    # False
+
 
 
 
@@ -261,7 +322,7 @@ print(heapq.nsmallest(3, num))  # [2, 9, 10]
 student = [{'names':'CC','height':189},
            {'names':'BB','height':169},
            {'names':'AA','height':199}]
-print(heapq.nsmallest(2,student,key=lambda x:x['height']))  # [{'names': 'BB', 'height': 169}, {'names': 'CC', 'height': 189}]
+print(heapq.nsmallest(2, student, key=lambda x:x['height']))  # [{'names': 'BB', 'height': 169}, {'names': 'CC', 'height': 189}]
 
 
 
@@ -297,12 +358,26 @@ def find(seq, target):
 
 
 
+# =====================操作符======================
+# 1. 操作符in
+if fruit in ['apple', 'orange', 'berry']:
+    pass
+
+
+
+
 # =====================其他======================
 # 1. 交换变量
 a, b = 0, 1
-a, b = b, a
+a, b = b, a     # 先生成一个元组(tuple)对象，然后unpack
 print(a, b)
 
 # 2. 链式比较
 c = 2
 print(1 < c <3)
+
+# 3. 交互环境下的 "_" 操作符，"_" 是上一个执行的表达式的输出
+# >>> 2 + 1
+# 3
+# >>> _
+# 3
