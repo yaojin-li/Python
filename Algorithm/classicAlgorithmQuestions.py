@@ -2,7 +2,7 @@
  !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
  --------------------------------
- Description : 25个经典算法
+ Description : 11个基本经典算法
  1. 菲波拉契数列问题
  2. 判断素数问题
  3. 判断水仙花数问题
@@ -12,9 +12,11 @@
  7. 统计字符串内容
  8. 计算特殊表达式的和 求s=a+aa+aaa+aaaa+aa…a的值
  9. 判断一个数是否是完数（一个数如果恰好等于它的因子之和，如6=1＋2＋3）
+ 10.阶乘 求1+2!+3!+…+20!的和
+ 11.判断回文数
  --------------------------------
  @Time    : 2018/11/26 20:30
- @File    : classicAlgorithm25Questions.py
+ @File    : classicAlgorithmQuestions.py
  @Software: PyCharm
  --------------------------------
  @Author  : lixj
@@ -156,6 +158,28 @@ def isCompleteNum(num):
     return True if sum == num else False
 
 
+######### 10. 求1+2!+3!+…+20!的和 #########
+def factorial(num):
+    sum = 0
+    temp = 1
+    for one_num in range(1, num + 1):
+        temp *= one_num
+        sum += temp
+    return sum
+
+
+######### 11. 判断一个数是否为回文数 #########
+def isNumberOfTracts(num):
+    str1 = str(num)
+    str2 = str(num)[::-1]  # 列表反转
+    for i in range(len(str1)):
+        if str1[i] != str2[i]:
+            print(str1[i], str2[i], "   error index is:", i)
+            return False
+    else:
+        return True
+
+
 if __name__ == '__main__':
     pass
 
@@ -202,4 +226,10 @@ if __name__ == '__main__':
     ######### 9. 判断一个数是否是完数（一个数如果恰好等于它的因子之和，如6=1＋2＋3） #########
     isCompleteNum(num=6)
 
+    ######### 10. 求1+2!+3!+…+20!的和 #########
+    factorial(20)
+
+    ######### 11. 判断回文数 #########
+    isNumberOfTracts(12345687654321)
+    
 """
