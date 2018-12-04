@@ -2,7 +2,7 @@
  !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
  --------------------------------
- Description : 11个基本经典算法
+ Description : 基本经典算法
  1. 菲波拉契数列问题
  2. 判断素数问题
  3. 判断水仙花数问题
@@ -14,6 +14,7 @@
  9. 判断一个数是否是完数（一个数如果恰好等于它的因子之和，如6=1＋2＋3）
  10.阶乘 求1+2!+3!+…+20!的和
  11.判断回文数
+ 12.四数取三，排列组合
  --------------------------------
  @Time    : 2018/11/26 20:30
  @File    : classicAlgorithmQuestions.py
@@ -168,8 +169,18 @@ def factorial(num):
     return sum
 
 
+def factorial_two(num):
+    from functools import reduce
+    sum = 0
+    for i in range(2, num + 2):  # 从2开始，num+2结束
+        sum += reduce(lambda x, y: x * y, range(1, i))  # reduce() 累积
+        print(sum)
+
+
 ######### 11. 判断一个数是否为回文数 #########
 def isNumberOfTracts(num):
+    if num < 0 or (num % 10 == 0 and num != 0):
+        return False
     str1 = str(num)
     str2 = str(num)[::-1]  # 列表反转
     for i in range(len(str1)):
@@ -180,7 +191,43 @@ def isNumberOfTracts(num):
         return True
 
 
+######### 12. 四数取三，排列组合 #########
+# 有1、2、3、4四个数字，能组成多少个互不相同且一个数字中无重复数字的三位数。不涉及0
+# 字符串涉及重复内容。set()去重。
+def permutations(num):
+    count = 0
+    for i in range(1, num + 1):
+        for j in range(1, num + 1):
+            for k in range(1, num + 1):
+                if ((i != j) and (j != k) and (i != k)):
+                    count += 1
+                    print(i * 100 + j * 10 + k, i, j, k)
+    print(count)
+
+
+# itertools.combinations()组合；itertools.permutations()排列，列出所有可能性
+def permutations_one(tar, num):
+    '''
+    :param tar: 待排列或组合的目标
+    :param num: 选取个数
+    :return: 排列或组合的结果
+    '''
+    import itertools
+    permutations = itertools.permutations(str(tar), num)
+    result = []
+    for permutation in list(permutations):
+        sum = ""
+        for char in permutation:
+            sum += str(char)
+        if tar.__class__ is int:
+            result.append(int(sum))
+        else:
+            result.append(sum)
+    print(result)
+
+
 if __name__ == '__main__':
+    print(isNumberOfTracts(10))
     pass
 
 """
@@ -232,4 +279,7 @@ if __name__ == '__main__':
     ######### 11. 判断回文数 #########
     isNumberOfTracts(12345687654321)
     
+    ######### 12. 四数取三，排列组合 #########
+    permutations(4)
+    permutations_one(1230, 3)
 """
