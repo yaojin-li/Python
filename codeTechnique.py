@@ -14,9 +14,6 @@
  --------------------------------------
 """
 
-
-
-
 # =====================字典======================
 # 1. 快速构建字典
 dict_zip = dict(zip('abcd', range(4)))  # zip()返回元组的列表，个数与最短的一致
@@ -95,9 +92,6 @@ def fun(x):
 
 
 # 10.
-
-
-
 
 
 # =====================列表======================
@@ -201,9 +195,6 @@ for x, y, z in product(x_list, y_list, z_list):
     # 2 4 5
     # 2 4 6
 
-
-
-
 # =====================元组======================
 # 1. 重组元组内容（不可改数据类型）
 T = (1, 2, 3)
@@ -217,9 +208,6 @@ sum = ""
 for char in T:
     sum += str(char)
 print(int(sum), sum.__class__)
-
-
-
 
 # =====================字符串======================
 # 1. 检查两个字符串是不是由相同字母不同顺序组成
@@ -242,25 +230,16 @@ for oneChar in reversed(str):
 str4 = "test"
 print(f'{str4} just test!')  # test just test!
 
-
-
-
 # =====================数组======================
 # 1. 数组转置---zip()用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表
 # 一个 * 传递位置参数（元组），两个 ** 传递关键字参数（字典）
 array = [['a', 'b'], ['c', 'd'], ['e', 'f']]
 print(list(zip(*array)))  # [('a', 'c', 'e'), ('b', 'd', 'f')]
 
-
-
-
 # =====================数值======================
 # 1. 反转数值
 num_reversed = 123456789
 print(int(str(num_reversed)[::-1]))
-
-
-
 
 # =====================序列对象======================
 colors = ['red', 'blue', 'green']  # colors = ('red','blue','green') # colors = "abcde"
@@ -309,9 +288,6 @@ for k in T:
     D[k] += 1
 print(D.items())  # dict_items([(1, 2), (2, 4), (3, 1), (4, 1)])
 
-
-
-
 # =====================类型转换======================
 # 1. 元组转字典
 tuple2list = ((1, 'a'), (2, 'b'))  # <class 'tuple'>
@@ -330,16 +306,10 @@ X = S + I  # 类型错误 用意不明确，数字or字符串？
 X = int(S) + I  # 做加法: 43
 X = S + str(I)  # 字符串联接: "421"
 
-
-
-
 # =====================输出======================
 # 1. 类似三目运算输出
 a = 2
 print('ok' if a == 1 else 'ko')  # ko
-
-
-
 
 
 # =====================判断======================
@@ -362,9 +332,6 @@ if items:
 # 4. 判断对象类型--多个指定的类型
 print(isinstance('a', (int, tuple)))  # False
 
-
-
-
 # =====================排序======================
 # 1. 排序
 import heapq
@@ -378,9 +345,6 @@ student = [{'names': 'CC', 'height': 189},
            {'names': 'AA', 'height': 199}]
 print(heapq.nsmallest(2, student,
                       key=lambda x: x['height']))  # [{'names': 'BB', 'height': 169}, {'names': 'CC', 'height': 189}]
-
-
-
 
 # =====================查找======================
 # 1. 查询
@@ -414,16 +378,10 @@ def find(seq, target):
 #     blocks.append(block)
 
 
-
-
-
 # =====================操作符======================
 # 1. 操作符in
 if fruit in ['apple', 'orange', 'berry']:
     pass
-
-
-
 
 # =====================其他======================
 # 1. 交换变量
@@ -440,3 +398,24 @@ print(1 < c < 3)
 # 3
 # >>> _
 # 3
+
+# 4. 使用any() / all()函数
+# all()："有‘假’为False，全‘真’为True，iterable为空是True"
+# any()："有‘真’为True，全‘假’为False，iterable为空是False"
+##不推荐
+found = False
+for item in a_list:
+    if condition(item):
+        found = True
+        break
+if found:
+    pass
+    # do something if found...
+
+##推荐
+if any(condition(item) for item in a_list):
+    pass
+    # do something if found...
+
+
+
