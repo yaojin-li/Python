@@ -318,6 +318,10 @@ def test(m):
     return 'a' if m == 1 else 'b'
 
 
+a = 1
+b = 2 if a > 2 else 1
+print(b)  # 1
+
 # 2. 带条件的推导列表
 print([x for x in range(10) if x % 2 == 0])  # [0, 2, 4, 6, 8]
 print([x for x in range(30) if x % 2 == 0 and x % 3 == 0])  # [0, 6, 12, 18, 24]
@@ -326,11 +330,21 @@ print([x + 1 if x > 5 else x * 10 for x in range(10)])  # [0, 10, 20, 30, 40, 50
 # 3. 直接判断真伪
 if x:
     pass
-if items:
+if not items:
+    pass
+if items is None:
     pass
 
 # 4. 判断对象类型--多个指定的类型
 print(isinstance('a', (int, tuple)))  # False
+
+# 5. 规范
+# cond1 = <complex comparison>
+# cond2 = <other complex comparison>
+# if cond1 and cond2:
+#     pass
+#     # do something
+
 
 # =====================排序======================
 # 1. 排序
@@ -418,4 +432,19 @@ if any(condition(item) for item in a_list):
     # do something if found...
 
 
+# 5. 显式代码
+# Bad
+def make_complex(*args):
+    x, y = args
+    return dict(**locals())
 
+
+# Pythonic
+def make_complex(x, y):
+    return {'x': x, 'y': y}
+
+
+# 6. 占位符---代替str.split(".")
+filename = "head.txt"
+basename, _, ext = filename.rpartition(".")
+print(basename, _, ext)  # head . txt
