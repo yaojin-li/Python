@@ -1,0 +1,17 @@
+LICENSE
+MANIFEST.in
+README.rst
+requirements.txt
+setup.cfg
+setup.py
+m3u8/__init__.py
+m3u8/mixins.py
+m3u8/model.py
+m3u8/parser.py
+m3u8/protocol.py
+m3u8.egg-info/PKG-INFO
+m3u8.egg-info/SOURCES.txt
+m3u8.egg-info/dependency_links.txt
+m3u8.egg-info/not-zip-safe
+m3u8.egg-info/requires.txt
+m3u8.egg-info/top_level.txt

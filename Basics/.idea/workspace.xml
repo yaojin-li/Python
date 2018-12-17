@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="539b54ae-212a-439e-b53e-127ec4379c15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB_operation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/divideWords.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hongzha.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wordCloud.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Blockchains/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Blockchains/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +15,7 @@
     <session id="425650694">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -109,6 +107,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="692" y="0" width="1235" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24936171" />

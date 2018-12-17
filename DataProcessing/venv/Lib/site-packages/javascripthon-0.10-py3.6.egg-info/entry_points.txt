@@ -1,0 +1,3 @@
+[console_scripts]
+pj = metapensiero.pj.__main__:main
+

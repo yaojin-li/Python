@@ -1,0 +1,172 @@
+================================================================================
+pyecharts-javascripthon
+================================================================================
+
+.. image:: https://api.travis-ci.org/pyecharts/pyecharts-javascripthon.svg?branch=master
+   :target: http://travis-ci.org/pyecharts/pyecharts-javascripthon
+
+.. image:: https://codecov.io/gh/pyecharts/pyecharts-javascripthon/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/pyecharts/pyecharts-javascripthon
+
+
+
+Introduction
+================
+pyecharts-javascripthon helps translate Python functions into javascript ones. It uses `javascripthon`_ and `dukpy`_
+to blend Python codes into javascript runtime. It supports python 2.7, 3.4, 3.5 and 3.6. It works
+on Linux, MacOS and Windows platforms.
+
+
+Sample python function:
+
+.. code-block:: python
+
+   def renderItem(params, api):
+       values = [api.value(0), api.value(1)]
+       coord = api.coord(values)
+       size = api.size([1, 1], values)
+       return {
+           "type": 'sector',
+           "shape": {
+               "cx": params['coordSys']['cx'],
+               "startAngle": coord[3] - size[1] / 2
+               }
+           }
+
+
+Compiled python functions:
+
+.. code-block:: javascript
+
+   function renderItem(params, api) {
+       var coord, size, values;
+       values = [api.value(0), api.value(1)];
+       coord = api.coord(values);
+       size = api.size([1, 1], values);
+       return {"type": "sector", "shape": {"cx": params["coordSys"]["cx"], "startAngle": (coord[3] - (size[1] / 2))}};
+   }
+
+
+>From Python 2.7 to Python 3.4
+-------------------------------
+
+Internet access is required because it uses javascripthon api as a free service. Down the line,
+community sponsorship will be required to cover the running cost of the service.
+
+Because the service is still under development, the default api key and api host are subjected
+to change. When it does happen please declare these environment variables to continue:
+
+for unix alike systems:
+
+.. code-block:: shell
+
+   export SCRIPTHON_API_ENDPOINT=http://new_ip_address_or_domain_name/translate
+   export SCRIPTION_API_TOKEN=new_api_key
+
+
+for windows systems:
+
+.. code-block:: shell
+
+   set SCRIPTHON_API_ENDPOINT=http://new_ip_address_or_domain_name/translate
+   set SCRIPTION_API_TOKEN=new_api_key
+
+
+Python 3.5 - 3.6
+-------------------
+
+No internet access is required.
+
+Usage
+==================
+
+1. Only Python 3.5+ code can be transcompiled. If you use python 2.7 or 3.4, you are obliged
+to use generic Python codes so that python 2.7 and 3.4 interpreter do not complain.
+
+2. For browsers DOM object, please visit `pyecharts_javascripthon.dom`.
+
+
+API (Dummy objects)
+=====================
+
+The following are the dummy objects and functions to help you bypass python interpreter.
+
+DOM objects
+------------
+
+`window <https://www.w3schools.com/jsref/obj_window.asp>`_,
+`Document <https://www.w3schools.com/jsref/dom_obj_document.asp>`_,
+`Date <https://www.w3schools.com/jsref/jsref_obj_date.asp>`_,
+`Math <https://www.w3schools.com/jsref/jsref_obj_math.asp>`_,
+`JSON <https://www.w3schools.com/jsref/jsref_obj_json.asp>`_,
+`console <https://www.w3schools.com/jsref/obj_console.asp>`_,
+`screen <https://www.w3schools.com/jsref/obj_screen.asp>`_
+
+.. code-block:: python
+
+   from pyecharts_javascripthon.dom import window    # for window object
+   from pyecharts_javascripthon.dom import Document  # for Document object
+   from pyecharts_javascripthon.dom import Date      # for Date object
+   from pyecharts_javascripthon.dom import Math      # for Math module
+   from pyecharts_javascripthon.dom import JSON      # for JSON module
+   from pyecharts_javascripthon.dom import screen    # for screen object
+   from pyecharts_javascripthon.dom import console   # for console object
+
+
+Global functions
+-------------------
+
+.. code-block:: python
+
+   from pyecharts_javascripthon.dom import alert    # provide alert dialog to the user
+
+
+You are welcome to submit PRs to add more objects and functions.
+
+Credits
+=============
+
+javascripthon: `Alberto Berti <https://github.com/azazel75>`_
+
+Dukpy: `Alessandro Molina <https://github.com/amol->`_ and `Sviatoslav Sydorenko <https://github.com/webknjaz>`_
+
+
+.. _javascripthon: https://github.com/metapensiero/metapensiero.pj
+.. _dukpy: https://github.com/amol-/dukpy
+
+
+
+Installation
+================================================================================
+
+
+You can install pyecharts-javascripthon via pip:
+
+.. code-block:: bash
+
+    $ pip install pyecharts-javascripthon
+
+
+or clone it and install it:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/pyecharts/pyecharts-javascripthon.git
+    $ cd pyecharts-javascripthon
+    $ python setup.py install
+
+Change log
+===========
+
+0.0.6 - 12.05.2018
+----------------------
+
+#. Update its dependency on javascripthon to 0.10.
+
+0.0.5 - 04.2018
+------------------
+
+#. First release
+
+
+

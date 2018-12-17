@@ -1,0 +1,68 @@
+Metadata-Version: 2.0
+Name: pyecharts-jupyter-installer
+Version: 0.0.3
+Summary: Install pyecharts extensions into jupyter
+Home-page: https://github.com/pyecharts/pyecharts-jupyter-installer
+Author: C.W.
+Author-email: wangc_2011@hotmail.com
+License: MIT
+Download-URL: https://github.com/pyecharts/pyecharts-jupyter-installer/archive/0.0.3.tar.gz
+Description-Content-Type: UNKNOWN
+Keywords: python
+Platform: UNKNOWN
+Classifier: Topic :: Office/Business
+Classifier: Topic :: Utilities
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Programming Language :: Python
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+
+================================================================================
+pyecharts-jupyter-installer
+================================================================================
+
+.. image:: https://api.travis-ci.org/pyecharts/pyecharts-jupyter-installer.svg?branch=master
+   :target: http://travis-ci.org/pyecharts/pyecharts-jupyter-installer
+
+.. image:: https://codecov.io/gh/pyecharts/pyecharts-jupyter-installer/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/pyecharts/pyecharts-jupyter-installer
+
+
+
+Installation
+================================================================================
+
+
+You can install pyecharts-jupyter-installer via pip:
+
+.. code-block:: bash
+
+    $ pip install pyecharts-jupyter-installer
+
+
+or clone it and install it:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/pyecharts/pyecharts-jupyter-installer.git
+    $ cd pyecharts-jupyter-installer
+    $ python setup.py install
+
+Change log
+================================================================================
+
+0.0.2 - 12/02/2018
+--------------------------------------------------------------------------------
+
+Updated
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+#. Well tested working version
+
+
+

@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: pyecharts
+Version: 0.5.11
+Summary: Python echarts, make charting easier
+Home-page: https://github.com/chenjiandongx/pyecharts
+Author: chenjiandongx
+Author-email: chenjiandongx@qq.com
+License: MIT
+Keywords: Echarts,charts,plotting-tool
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: Implementation
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Software Development :: Libraries
+Requires-Dist: pillow
+Requires-Dist: jinja2
+Requires-Dist: future
+Requires-Dist: jupyter-echarts-pypkg (==0.1.2)
+Requires-Dist: lml (==0.0.2)
+Requires-Dist: pyecharts-javascripthon (==0.0.6)
+
+UNKNOWN
+
+
