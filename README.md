@@ -8,4 +8,5 @@ Python Related Work
 6. PythonWeb 后端架构
 7. Practice 练习
 8. Spider 爬虫
-9. otherfiles 其他
+9. Interesting 有趣内容
+10. otherfiles 其他
