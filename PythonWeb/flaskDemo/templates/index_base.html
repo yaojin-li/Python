@@ -1,0 +1,11 @@
+{% extends "base_head.html" %}
+
+{% block content %}
+    {#  注入变量  #}
+    <h1>hello, {{ user.username }}</h1>
+
+    {#  循环  #}
+    {% for post in posts %}
+        <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
+    {% endfor %}
+{% endblock %}

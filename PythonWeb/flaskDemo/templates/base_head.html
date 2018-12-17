@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>head</title>
+    {% else %}
+    <title>other head</title>
+    {% endif %}
+</head>
+<body>
+    <div>blog:<a href="/index"> Home </a></div>
+    <hr>
+    {#  block控制语句来定义派生模板可以插入代码的位置  #}
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>
