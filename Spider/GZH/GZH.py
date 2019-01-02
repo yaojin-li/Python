@@ -11,7 +11,7 @@
  @Time    : 2018/12/21 21:22
  @File    : GZH.py
  @Software: PyCharm
- --------------------------------bnnnnnnnnnnnvb          4
+ --------------------------------
  @Author  : lixj
  @contact : lixj_zj@163.com
 """
@@ -22,6 +22,7 @@ import logging
 import random
 import re
 import os
+import configure.userAgent
 
 # logging.basicConfig函数对日志的输出格式及方式做相关配置
 logging.basicConfig(level=logging.INFO,
@@ -40,7 +41,7 @@ def getRandomIP():
     return proxies
 
 
-def downloadImg(imgLinkList, headers, proxies, imgPath):
+def downloadImg(imgLinkList, imgPath):
     if not os.path.exists(imgPath):
         os.makedirs(imgPath)
     os.chdir(imgPath)  # 切换下载图片的目录
@@ -55,7 +56,7 @@ def downloadImg(imgLinkList, headers, proxies, imgPath):
             logging.error(str(e))
 
 
-def getImgLinkList(url, headers, proxies):
+def getImgLinkList(url):
     req = requests.get(url, headers=headers, proxies=proxies)
     struct = etree.HTML(req.text)
     # 获取所有图片地址
@@ -64,7 +65,7 @@ def getImgLinkList(url, headers, proxies):
     return imgLinkList
 
 
-def downloadHtml(url, htmlPath, headers, proxies):
+def downloadHtml(url, htmlPath):
     try:
         req = requests.get(url, headers=headers, proxies=proxies)
         struct = etree.HTML(req.text)
@@ -89,12 +90,12 @@ def replaceImg(htmlPath, htmlName, imgPath):
         imglist = re.findall(imgre, html)
 
         for img, path in zip(imglist, pathList):
-            a = img.split(" />")
-            b = imgPath + "\\" + path
-            new = a[0] + "src=" + "\"" + b + "\"" + " />"
+            imgTagList = img.split(" />")
+            fullImgPath = imgPath + "\\" + path
+            newImgTag = imgTagList[0] + "src=" + "\"" + fullImgPath + "\"" + " />"
             if html.__contains__(img):
-                c = html.replace(img, new)
-                html = c
+                newHtml = html.replace(img, newImgTag)
+                html = newHtml
     return html
 
 
@@ -103,22 +104,19 @@ def writeImgToNewHTML(newHtmlPath, html, htmlName):
         f.write(html)
 
 
+global proxies, headers
+userAgentMiddleware = configure.userAgent.randomUserAgentMiddleware
+headers = userAgentMiddleware.getRandomHeaders()
+# 随机IP
+proxies = getRandomIP()
+
 if __name__ == '__main__':
     # 定义常量
     imgPath = "F:\\GZH\\img"
     htmlPath = "F:\\GZH\\"
     newHtmlPath = "F:\\GZH\\"
-    headers = {
-        'Connection': 'Keep-Alive',
-        'Accept': 'text/html, application/xhtml+xml, */*',
-        'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'
-    }
 
     url = "https://mp.weixin.qq.com/s?timestamp=1546254005&src=3&ver=1&signature=64KOvajKkM5b-oRNW0N-Foy2OKtwxDVyV58DiofRbumRAlLgMdKssCvwMw*htwxliMjBveSD3ATjXrL1IOV4DoMgoX261NC*lK0*5lztLB0P7k1DZRwsibekTLRXQPDtGwegLs-O0CCVnmCxyxbceEeqTKNwfcGMjlNZD*8pDlc="
-
-    # 随机IP
-    proxies = getRandomIP()
 
     # 下载HTML文件
     htmlName = downloadHtml(url, htmlPath, headers, proxies)
