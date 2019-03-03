@@ -100,5 +100,5 @@ class UserAgent():
 
 if __name__ == '__main__':
     userAgent = UserAgent()
-    userAgent.getRandomUserAgent()
-    userAgent.getRandomHeaders()
+    oneUserAgent = userAgent.getRandomUserAgent()
+    oneRandom = userAgent.getRandomHeaders()
