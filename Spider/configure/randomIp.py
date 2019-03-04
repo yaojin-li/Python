@@ -30,9 +30,9 @@ class RandomIp():
         self.XICI_URL = "https://www.xicidaili.com/nn/"
         self.BAIDU_URL = "https://zhidao.baidu.com/question/362128631342231812.html"
         self.MAX_PAGE_OF_XICI = 3614  # 西刺网站总页数
-        self.NUM_OF_PAGES = 1  # 爬取的目标页数
+        self.NUM_OF_PAGES = 10  # 爬取的目标页数
         # 获取随机的headers
-        self.headers = userAgent.UserAgent().getRandomHeaders()  # userAgent.UserAgent() 类实例化()括号就相当于self参数
+        # self.headers = userAgent.UserAgent().getRandomHeaders()  # userAgent.UserAgent() 类实例化()括号就相当于self参数
 
     def getIpPool(self):
         """
@@ -45,7 +45,9 @@ class RandomIp():
         targetPages = random.sample(range(1, maxPage), self.NUM_OF_PAGES)
         for onePage in targetPages:
             onePageUrl = self.XICI_URL + str(onePage)
-            req = requests.get(onePageUrl, headers=self.headers, timeout=10)
+            req = requests.get(onePageUrl,
+                               headers=userAgent.UserAgent().getRandomHeaders(),
+                               timeout=10)
             #
             if (req.status_code == 200):
                 soup = bs(req.text, "lxml")
@@ -77,7 +79,10 @@ class RandomIp():
         try:
             for ip in ipPool[:10]:
                 proxy = {ip.split("://")[0]: ip.split("://")[1]}
-                req = requests.get(self.BAIDU_URL, proxies=proxy, headers=self.headers, timeout=10)
+                req = requests.get(self.BAIDU_URL,
+                                   proxies=proxy,
+                                   headers=userAgent.UserAgent().getRandomHeaders(),
+                                   timeout=10)
                 if req.status_code != 200:
                     ipPool.remove(ip)
             return ipPool
@@ -85,37 +90,30 @@ class RandomIp():
             logging.error("重新验证IP池异常！", e)
             traceback.format_exc(e)
 
-    def getOneIp(self):
-        """
-        获取随机的一个IP地址
-        :return:
-        """
-        return random.choice(self.getIpPool())
-
     def writeIpToFile(self):
         """
         IP写入文件
         :return:
         """
         try:
-            with open("./ipPool.txt", "a+", encoding="utf-8") as f:
+            with open("ipPool.txt", "a+", encoding="utf-8") as f:
                 f.write(str(self.getIpPool()))
                 logging.info("写入IP {} 个结束！".format(len(self.getIpPool())))
         except Exception as e:
             logging.error("IP写入文件异常！", e)
             traceback.format_exc(e)
 
-    def readIpFromFile(self, numOfIp):
+    def getNumIpFromFile(self, num):
         """
         从文件中读入IP
         :return:
         """
         try:
-            with open("./ipPool.txt", "r", encoding="utf-8") as f:
+            with open("ipPool.txt", "r", encoding="utf-8") as f:
                 content = f.read()
                 contList = content.split("', '")
                 ipList = contList[1:len(contList) - 1]
-                randomIpList = random.choices(ipList, numOfIp)
+                randomIpList = random.sample(ipList, num)
             return randomIpList
 
         except Exception as e:
@@ -125,9 +123,9 @@ class RandomIp():
 
 
 if __name__ == '__main__':
-    RandomIp().writeIpToFile()
+    # RandomIp().writeIpToFile()
 
-    # RandomIp().readIpFromFile(3)
+    print(RandomIp().getNumIpFromFile(num=3))
 
     # logging.info(len(ipPool))
     # logging.info("ipPool is:" + str(ipPool))
