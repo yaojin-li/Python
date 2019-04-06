@@ -13,6 +13,7 @@
 """
 
 import randomIp
+import userAgent
 
 # 文件中写入IP
 # randomIp.RandomIp().writeIpToFile()
@@ -22,3 +23,9 @@ import randomIp
 
 # 获取随机的多个IP
 # randomIp.RandomIp().getNumOfIp(5)
+
+# 获取随机userAgent
+# userAgent.UserAgent().getRandomUserAgent()
+
+# 获取随机headers
+# userAgent.UserAgent().getRandomHeaders()

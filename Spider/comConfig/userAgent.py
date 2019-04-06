@@ -83,7 +83,7 @@ class UserAgent():
     def getRandomUserAgent(self):
         userAgent = random.choice(self.userAgentList)
         # 显示当前使用的useragent
-        logging.info("******** Current UserAgent: ********* %s" % userAgent)
+        logging.info("Current UserAgent: %s" % userAgent)
         return userAgent
 
     def getRandomHeaders(self):
@@ -93,7 +93,7 @@ class UserAgent():
             'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
             'User-Agent': self.getRandomUserAgent()
         }
-        logging.info("******** Current Headers: ********* %s " % headers)
+        logging.info("Current Headers: %s" % headers)
         return headers
 
 

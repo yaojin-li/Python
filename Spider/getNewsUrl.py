@@ -14,7 +14,6 @@
 
 import requests
 from lxml import etree
-import randomIp
 
 headers = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)', 'Referer': 'http://www.mzitu.com'}
 Picreferer = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)', 'Referer': 'http://i.meizitu.net'}
