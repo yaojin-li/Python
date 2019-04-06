@@ -1,16 +1,15 @@
 """
  !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
- --------------------------------------
- @Description : 构建 userAgentList
- --------------------------------------
- @File        : userAgent.py
- @Time        : 2019/1/2 23:01
- @Software    : PyCharm
- --------------------------------------
- @Author      : lixj
- @Contact     : lixj_zj@163.com
- --------------------------------------
+ --------------------------------
+ Description :
+ --------------------------------
+ @Time    : 19-2-28 上午11:38
+ @File    : userAgent.py
+ @Software: PyCharm
+ --------------------------------
+ @Author  : lixj
+ @contact : lixj_zj@163.com
 """
 
 import random
