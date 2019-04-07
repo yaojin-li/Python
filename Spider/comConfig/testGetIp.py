@@ -19,7 +19,10 @@ import userAgent
 # randomIp.RandomIp().writeIpToFile()
 
 # 获取随机一个IP
-# randomIp.RandomIp().getOneIp()
+randomIp.RandomIp().getOneIp()
+
+# 获取随机一个prop
+# randomIp.RandomIp().getOneProxies()
 
 # 获取随机的多个IP
 # randomIp.RandomIp().getNumOfIp(5)

@@ -16,6 +16,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 import userAgent
 import logging
+import os
 import random
 import traceback
 
@@ -28,6 +29,7 @@ class RandomIp():
     def __init__(self):
         self.XICI_URL = "https://www.xicidaili.com/nn/"
         self.BAIDU_URL = "https://www.baidu.com/"
+        self.IP_POOL_FILE = "ipPool.txt"
         self.MAX_PAGE_OF_XICI = 3614  # 西刺网站总页数
         self.NUM_OF_PAGES = 3  # 爬取的目标页数
         # 获取随机的headers
@@ -90,7 +92,9 @@ class RandomIp():
         :return:
         """
         try:
-            with open("./ipPool.txt", "a+", encoding="utf-8") as f:
+            module_path = os.path.dirname(__file__)
+            fileName = module_path + '\\' + self.IP_POOL_FILE
+            with open(fileName, "a+", encoding="utf-8") as f:
                 f.write(str(self.getIpPool()))
                 logging.info("写入IP {} 个结束！".format(len(self.getIpPool())))
         except Exception as e:
@@ -103,7 +107,9 @@ class RandomIp():
         :return:
         """
         try:
-            with open("ipPool.txt", "r", encoding="utf-8") as f:
+            module_path = os.path.dirname(__file__)
+            fileName = module_path + '\\' + self.IP_POOL_FILE
+            with open(fileName, "r", encoding="utf-8") as f:
                 content = f.read()
                 contList = content.split("', '")
                 ipList = contList[1:len(contList) - 1]
@@ -114,13 +120,35 @@ class RandomIp():
             logging.error("IP读入文件异常！异常信息：", e)
             traceback.format_exc(e)
 
-    def getNumOfIp(self, numOfIp):
+    def getOneProxies(self):
         """
-        从文件中读入IP
+        获取随机的一个Proxies
         :return:
         """
         try:
-            with open("ipPool.txt", "r", encoding="utf-8") as f:
+            module_path = os.path.dirname(__file__)
+            fileName = module_path + '\\' + self.IP_POOL_FILE
+            with open(fileName, "r", encoding="utf-8") as f:
+                content = f.read()
+                contList = content.split("', '")
+                ipList = contList[1:len(contList) - 1]
+                randomIp = random.choice(ipList)  # choice()获取一个
+                proxies = {"http": randomIp}
+                logging.info("proxies: %s", str(proxies))
+            return proxies
+        except Exception as e:
+            logging.error("IP读入文件异常！异常信息：", e)
+            traceback.format_exc(e)
+
+    def getNumOfIp(self, numOfIp):
+        """
+        获取指定数量的IP
+        :return:
+        """
+        try:
+            module_path = os.path.dirname(__file__)
+            fileName = module_path + '\\' + self.IP_POOL_FILE
+            with open(fileName, "r", encoding="utf-8") as f:
                 content = f.read()
                 contList = content.split("', '")
                 ipList = contList[1:len(contList) - 1]
