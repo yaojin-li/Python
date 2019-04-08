@@ -437,8 +437,6 @@ if any(condition(item) for item in a_list):
 def make_complex(*args):
     x, y = args
     return dict(**locals())
-
-
 # Pythonic
 def make_complex(x, y):
     return {'x': x, 'y': y}
@@ -448,3 +446,7 @@ def make_complex(x, y):
 filename = "head.txt"
 basename, _, ext = filename.rpartition(".")
 print(basename, _, ext)  # head . txt
+
+# 7. json 校验格式
+import json
+print(json.dumps(data, index=2))

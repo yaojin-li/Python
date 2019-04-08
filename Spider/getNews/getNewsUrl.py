@@ -14,12 +14,11 @@
 
 import requests
 from lxml import etree
-
-headers = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)', 'Referer': 'http://www.mzitu.com'}
-Picreferer = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)', 'Referer': 'http://i.meizitu.net'}
+import userAgent
+import randomIp
 
 url = 'https://news.hao123.com/wangzhi'
-re = requests.get(url, headers=headers)
+re = requests.get(url, headers=userAgent.UserAgent().getRandomHeaders(), proxies = randomIp.RandomIp().getOneProxies())
 html = re.text
 struct = etree.HTML(html)
 
