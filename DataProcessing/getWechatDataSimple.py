@@ -4,6 +4,7 @@
  -*- coding: utf-8 -*-
  --------------------------------
  Description : Charles解析微信小程序接口获取链接，爬取数据
+ charles解析方法：https://blog.csdn.net/HeyShHeyou/article/details/90045204
  --------------------------------
  @Time    : 2019/5/9 16:39
  @File    : getWechatDataSimple.py
