@@ -13,13 +13,13 @@
 """
 
 import randomIp
-import userAgent
+import user_agent
 
 # 文件中写入IP
-# randomIp.RandomIp().writeIpToFile()
+randomIp.RandomIp().reviewIp()
 
 # 获取随机一个IP
-randomIp.RandomIp().getOneIp()
+# randomIp.RandomIp().getOneIp()
 
 # 获取随机一个prop
 # randomIp.RandomIp().getOneProxies()

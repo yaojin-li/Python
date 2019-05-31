@@ -5,7 +5,7 @@
  Description :
  --------------------------------
  @Time    : 19-2-28 上午11:38
- @File    : userAgent.py
+ @File    : user_agent.py
  @Software: PyCharm
  --------------------------------
  @Author  : lixj
@@ -20,9 +20,9 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
 
-class UserAgent():
+class UserAgent(object):
     def __init__(self):
-        self.userAgentList = [
+        self.user_agent_list = [
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
             "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11",
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6",
@@ -80,24 +80,24 @@ class UserAgent():
             "Mozilla/5.0 (Linux; U; Android 2.1-update1; de-de; HTC Desire 1.19.161.5 Build/ERE27) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17"
         ]
 
-    def getRandomUserAgent(self):
-        userAgent = random.choice(self.userAgentList)
+    def get_user_agent(self):
+        userAgent = random.choice(self.user_agent_list)
         # 显示当前使用的useragent
         logging.info("Current UserAgent: %s" % userAgent)
         return userAgent
 
-    def getRandomHeaders(self):
+    def get_headers(self):
         headers = {
             'Connection': 'Keep-Alive',
             'Accept': 'text/html, application/xhtml+xml, */*',
             'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
-            'User-Agent': self.getRandomUserAgent()
+            'User-Agent': self.get_user_agent()
         }
         logging.info("Current Headers: %s" % headers)
         return headers
 
 
 if __name__ == '__main__':
-    userAgent = UserAgent()
-    oneUserAgent = userAgent.getRandomUserAgent()
-    oneRandom = userAgent.getRandomHeaders()
+    user_agent = UserAgent()
+    one_user_agent = user_agent.get_user_agent()
+    one_header = user_agent.get_headers()

@@ -14,7 +14,7 @@
 
 import requests
 from bs4 import BeautifulSoup as bs
-import userAgent
+import user_agent
 import logging
 import os
 import random
@@ -28,12 +28,12 @@ logging.basicConfig(level=logging.DEBUG,
 class RandomIp():
     def __init__(self):
         self.XICI_URL = "https://www.xicidaili.com/nn/"
-        self.BAIDU_URL = "https://www.baidu.com/"
+        self.BAIDU_URL = "https://www.xicidaili.com/nn/"
         self.IP_POOL_FILE = "ipPool.txt"
         self.MAX_PAGE_OF_XICI = 3614  # 西刺网站总页数
         self.NUM_OF_PAGES = 3  # 爬取的目标页数
         # 获取随机的headers
-        self.headers = userAgent.UserAgent().getRandomHeaders()  # userAgent.UserAgent() 类实例化()括号就相当于self参数
+        self.headers = user_agent.UserAgent().getRandomHeaders()  # userAgent.UserAgent() 类实例化()括号就相当于self参数
 
     def getIpPool(self):
         """
@@ -75,16 +75,17 @@ class RandomIp():
         :return: ipPool
         """
         ipPool = self.getIpPool()
-        try:
-            for ip in ipPool[:10]:
-                proxy = {ip.split("://")[0]: ip.split("://")[1]}
+        for ip in ipPool:
+            proxy = {ip.split("://")[0]: ip.split("://")[1]}
+            try:
                 req = requests.get(self.BAIDU_URL, proxies=proxy, headers=self.headers, timeout=10)
                 if req.status_code != 200:
                     ipPool.remove(ip)
-            return ipPool
-        except Exception as e:
-            logging.error("重新验证IP池异常！异常信息：", e)
-            traceback.format_exc(e)
+            except Exception as e:
+                logging.error("ip异常", ip)
+                continue
+        return ipPool
+
 
     def writeIpToFile(self):
         """

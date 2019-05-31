@@ -28,7 +28,7 @@ import math
 
 
 ######### 1. 菲波拉契数列问题 #########
-class fibonacci():
+class fibonacci(object):
     def __init__(self, num):
         self.num = num
 
