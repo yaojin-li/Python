@@ -22,13 +22,14 @@ import logging
 import random
 import re
 import os
-import user_agent
+import user_agent as userAgent
 import time
 import uuid
 
 # logging.basicConfig函数对日志的输出格式及方式做相关配置
 logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
+                    format='%(asctime)s - %(filename)s[line:%(lineno)d] '
+                           '- %(levelname)s: %(message)s')
 
 
 def get_random_ip():
@@ -38,9 +39,9 @@ def get_random_ip():
     """
     with open("ipPool.txt", "r") as f:  # 构建IP池
         content = f.read()
-        contList = content.split("', '")
-        ipList = contList[1:len(contList) - 1]
-        random_ip = random.choice(ipList)
+        cont_list = content.split("', '")
+        ip_list = cont_list[1:len(cont_list) - 1]
+        random_ip = random.choice(ip_list)
         proxy_ip = "http://" + random_ip
         proxies = {"http": proxy_ip}
         logging.info("random ip is {}".format(proxies))
@@ -57,18 +58,21 @@ def download_img(img_link_list, img_path):
     if not os.path.exists(img_path):
         os.makedirs(img_path)
     os.chdir(img_path)  # 切换下载图片的目录
-    for imgNum, imgLink in enumerate(img_link_list):
-        img = requests.get(imgLink, headers=headers, proxies=proxies)
-        suffix = imgLink.split("=")[-1]
+    for img_num, img_link in enumerate(img_link_list):
+        img = requests.get(img_link, headers=headers, proxies=proxies)
         try:
-            with open(str(imgNum) + "." + suffix, "wb") as f:
-                f.write(img.content)
-                logging.info("Download {imgNum} th img succeed!".format(imgNum=str(imgNum)))
+            suffix = img_link.split("=")[-1]
+            if suffix in ["jpeg","png","jpg","gif","webp"]:
+                with open(str(img_num) + "." + suffix, "wb") as f:
+                    f.write(img.content)
+                    logging.info("Download {img_num} th img succeed!".format(img_num=str(img_num)))
+            else:
+                continue
         except Exception as e:
             logging.error(str(e))
 
 
-def get_img_link(url):
+def getimg_link_list(url):
     """
     获取所有图片链接
     :param url:
@@ -78,8 +82,8 @@ def get_img_link(url):
         req = requests.get(url, headers=headers, proxies=proxies)
         struct = etree.HTML(req.text)
         # 获取所有图片地址
-        xPath = "//img/@data-src"  # 匹配任意深度含有data-src熟悉的图片，获取链接
-        img_link_list = struct.xpath(xPath)
+        x_path = "//img/@data-src"  # 匹配任意深度含有data-src熟悉的图片，获取链接
+        img_link_list = struct.xpath(x_path)
         logging.info("get img link list succeed!")
         return img_link_list
     except Exception as e:
@@ -99,8 +103,8 @@ def download_html(url, html_path):
     try:
         req = requests.get(url, headers=headers, proxies=proxies)
         struct = etree.HTML(req.text)
-        xPath = "//h2/text()"
-        title = struct.xpath(xPath)
+        x_path = "//h2/text()"
+        title = struct.xpath(x_path)
         html_name = title[0].replace("\\n", "").strip()
         with open(html_name + ".html", "w+", encoding="utf-8") as f:
             f.write(req.text)
@@ -110,9 +114,9 @@ def download_html(url, html_path):
         logging.error(str(e))
 
 
-def img_replaced(html_path, html_name, img_path):
+def replace_img(html_path, html_name, img_path):
     """
-    导入图片
+    替换图片
     :param html_path:
     :param html_name:
     :param img_path:
@@ -127,18 +131,18 @@ def img_replaced(html_path, html_name, img_path):
         img_re = re.compile(pattern)
         img_list = re.findall(img_re, html)
 
-        for img, path in zip(img_list, path_list):
+        for img, path in zip(imglist, path_list):
             img_tag_list = img.split(" />")
-            full_img_path = img_path + "\\" + path
-            new_img_tag = img_tag_list[0] + "src=" + "\"" + full_img_path + "\"" + " />"
+            fullimg_path = img_path + "\\" + path
+            new_img_tag = img_tag_list[0] + "src=" + "\"" + fullimg_path + "\"" + " />"
             if html.__contains__(img):
                 new_html = html.replace(img, new_img_tag)
                 html = new_html
-    logging.info("replaced img succeed!")
+    logging.info("replace img succeed!")
     return html
 
 
-def deleted_file(path, html_name):
+def del_file(path, html_name):
     """
     删除指定文件
     :param path:
@@ -152,27 +156,27 @@ def deleted_file(path, html_name):
         logging.error(str(e))
 
 
-def combined_img(html_path, html, html_name):
+def write_img_to_new_html(newhtml_path, html, html_name):
     """
     重写文件中的图片，生成新的html
-    :param html_path:
+    :param newhtml_path:
     :param html:
     :param html_name:
     :return:
     """
-    os.chdir(html_path)
+    os.chdir(newhtml_path)
     try:
         # 直接覆盖原来没有图片的文件
         with open(html_name + ".html", "w+", encoding="utf-8") as f:
             f.write(html)
-        logging.info("combined img to new html succeed!")
+        logging.info("rewrite img to new html succeed!")
     except Exception as e:
         logging.error(str(e))
 
 
-def named_generator():
+def get_random_path_name():
     """
-    获取唯一命名
+    获取随机数命名文件夹
     :return:
     """
     return time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + "_" + str(uuid.uuid4())
@@ -180,27 +184,27 @@ def named_generator():
 
 def run(url):
     # 定义常量
-    root_path = os.path.dirname(__file__) + os.path.altsep + "GZH" + os.path.altsep + named_generator()
+    root_path = os.path.dirname(__file__) + os.path.altsep + "GZH" + os.path.altsep + get_random_path_name()
     img_path = root_path + os.path.altsep + "img"
 
     # 下载HTML文件
     html_name = download_html(url, root_path)
 
     # 下载图片
-    img_list = get_img_link(url)
+    img_list = getimg_link_list(url)
     download_img(img_list, img_path)
 
     # 替换图片写入新的HTML
-    img_replaced_html = img_replaced(root_path, html_name, img_path)
-    combined_img(root_path, img_replaced_html, html_name)
+    after_replace_img_html = replace_img(root_path, html_name, img_path)
+    write_img_to_new_html(root_path, after_replace_img_html, html_name)
 
 
 if __name__ == '__main__':
     global proxies, headers
-    headers = user_agent.UserAgent().get_headers()
+    headers = userAgent.UserAgent().get_headers()
     # 随机IP
     proxies = get_random_ip()
 
-    url = "https://mp.weixin.qq.com/s?__biz=MjM5NjQ1MTkyMA==&mid=2653814260&idx=1&sn=c82f1695df73ef0dfe76db6a2b2ce1f5&chksm=bd305ecb8a47d7dd64135991ac765723693161c4248b9efde8c15e4651094d7ac9146636c051&scene=0&xtrack=1#rd"
+    url = "https://mp.weixin.qq.com/s/LzRn5vaNayeJ3Z41ZpLqxA"
 
     run(url)

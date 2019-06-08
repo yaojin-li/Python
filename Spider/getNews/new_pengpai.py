@@ -14,14 +14,24 @@
 
 import requests
 import randomIp
-import userAgent
+import user_agent
+from lxml import etree
+from bs4 import BeautifulSoup as bs
 
-url = "https://www.thepaper.cn/channel_25951"
+# url = "https://www.thepaper.cn/channel_25951"
+#
+# proxies = randomIp.RandomIp().getOneProxies()
+# headers = userAgent.UserAgent().getRandomHeaders()
+#
+# re = requests.get(url, headers=headers, proxies=proxies)
+# html = re.text
+# with open("re.txt","w",encoding="utf-8") as f:
+#     f.write(html)
 
-proxies = randomIp.RandomIp().getOneProxies()
-headers = userAgent.UserAgent().getRandomHeaders()
+with open("re.txt","r",encoding="utf-8") as f:
+    content = f.read()
 
-re = requests.get(url, headers=headers, proxies=proxies)
-html = re.text
-with open("re.txt","w",encoding="utf-8") as f:
-    f.write(html)
+soup = bs(content,"html.parser")
+aList = soup.find_all("a")
+for a in aList:
+    print(a.get('href'))
