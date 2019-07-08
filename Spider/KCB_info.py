@@ -4,7 +4,7 @@
  --------------------------------
  Description : 爬取上交所科创版所有企业的相关信息
  --------------------------------
- @Time    : 2019/4/23 16:44
+ @Time    : 2019/6/23 16:44
  @File    : dynamic_info.py
  @Software: PyCharm
  --------------------------------
@@ -193,7 +193,7 @@ class Dynamic():
                     one_publish_info['title'] = title[0]
 
                     # 下载 pdf 文件
-                    # self.pdf_download(company_name, title[0], url[0])
+                    self.pdf_download(company_name, title[0], url[0])
 
                 report[type_value] = one_publish_info
             publish_info[self.PUBLISH_REPORT[report_key]] = report
@@ -265,7 +265,7 @@ def write_html(file, content):
 if __name__ == '__main__':
     # 1. 打开网页 http://kcb.sse.com.cn/renewal/
     # 2. F12 -> Source -> kcb.see.com.cn -> renewal -> (index)
-    # 3. 349 行左右：
+    # 3. 359 行左右：
     #     container.getDataByAjax(url, utils.mergeJson(params,p),getNum);
     # 4. 在这一行打断点，改变 params 中的 pageHelp.pageSize 参数，继续运行
     # 5. 页面列表会加载所有科创版公司的相关信息
@@ -283,9 +283,9 @@ if __name__ == '__main__':
     # 获取每个公司的项目详情页url列表
     url_list, company_list = dynamic.dynamic_info_result(html)
 
-    # 构造每个公司的文件夹并生成对应公司的详情文件
-    dynamic.per_company_detail_html(url_list[:10])
+    # 构造每个公司的文件夹并生成对应公司的详情文件；取前三个公司下载
+    dynamic.per_company_detail_html(url_list[:3])
 
     # 解析每个公司的详细信息，仅包括项目基本信息表与信息披露表；
-    # 暂不包括 问询与回复、上市委会议公告与结果、注册结果通知 三个表
-    dynamic.info_details_result(company_list[:10])
+    # 暂不包括 问询与回复、上市委会议公告与结果、注册结果通知 三个表；取前三个公司下载
+    dynamic.info_details_result(company_list[:3])
