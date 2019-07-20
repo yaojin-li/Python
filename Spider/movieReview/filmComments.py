@@ -53,7 +53,7 @@ import random
 
 # 选取随机的IP地址
 def getRandomIP():
-    with open("./ipPool.txt", "r") as f:
+    with open("./ip_pool.txt", "r") as f:
         content = f.read()
         contList = content.split("', '")
         ipList = contList[1:len(contList)-1]

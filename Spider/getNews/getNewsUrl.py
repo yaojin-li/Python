@@ -15,10 +15,10 @@
 import requests
 from lxml import etree
 import user_agent
-import randomIp
+import random_ip
 
 url = 'https://news.hao123.com/wangzhi'
-re = requests.get(url, headers=user_agent.UserAgent().getRandomHeaders(), proxies = randomIp.RandomIp().getOneProxies())
+re = requests.get(url, headers=user_agent.UserAgent().getRandomHeaders(), proxies = random_ip.RandomIp().getOneProxies())
 html = re.text
 struct = etree.HTML(html)
 

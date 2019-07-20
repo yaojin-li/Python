@@ -13,7 +13,7 @@
 """
 
 import requests
-import randomIp
+import random_ip
 import user_agent
 from lxml import etree
 from bs4 import BeautifulSoup as bs

@@ -270,7 +270,7 @@ if __name__ == '__main__':
     # 4. 在这一行打断点，改变 params 中的 pageHelp.pageSize 参数，继续运行
     # 5. 页面列表会加载所有科创版公司的相关信息
     # 6. 在 Elements 中选中 <html> 标签，右键 copy -> copy outerHTML，获取当前页所有展示的 html
-    # 7. 文件结构：
+    # 7. 新建文件目录结构：
     #    doc
     #    -- dynamic_info
     #       -- dynamic_info_html.txt    写入第 6 步的 html 内容

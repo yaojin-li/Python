@@ -37,7 +37,7 @@ def get_random_ip():
     获取随机的IP地址
     :return:
     """
-    with open("ipPool.txt", "r") as f:  # 构建IP池
+    with open("ip_pool.txt", "r") as f:  # 构建IP池
         content = f.read()
         cont_list = content.split("', '")
         ip_list = cont_list[1:len(cont_list) - 1]
