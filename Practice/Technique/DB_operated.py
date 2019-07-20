@@ -18,12 +18,15 @@ import traceback
 import json
 import cx_Oracle
 
+dic = {'time': '2019-05-07 00:00:00', 'kcbName': '深圳市有方科技股份有限公司', 'listed': '深圳能源', 'code': '000027'}
+
+
 
 class Trans():
     def __init__(self):
-        self.json_path = "json2mongo.json"
-        self.mysql_path = "csv2mysql.csv"
-        self.oracle_path = "csv2oracle.csv"
+        self.jsonPath = "json2mongo.json"
+        self.mysqlPath = "csv2mysql.csv"
+        self.oraclePath = "csv2oracle.csv"
         self.oracle_localhost = cx_Oracle.connect('app_common_service/Tebon@20180522@192.168.2.49:1521/orcl')    # 链接信息：localhost:1521/orcl，在数据库中右键属性，查看链接详细信息
 
     def csv2oracle(self):
@@ -53,10 +56,9 @@ class Trans():
         except:
             conn.rollback()
 
-if __name__ == '__main__':
-    trans = Trans()
-    # trans.json2mongodb()
-    # trans.csv2mysql()
-    trans.csv2oracle()
+trans = trans()
+# trans.json2mongodb()
+# trans.csv2mysql()
+trans.csv2oracle()
 
 
