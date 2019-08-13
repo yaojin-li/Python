@@ -17,6 +17,7 @@
 
 import os
 from pathlib import Path
+import pathlib
 import os.path
 from functools import partial
 
@@ -46,6 +47,51 @@ def rename_file_suffix(dic_path, old_suffix, new_suffix):
         file_path.rename(file_path.with_suffix("." + new_suffix))
 
 
+def is_py_file():
+    """
+    判断当前文件是否符合 '*.py'规则的文件
+    :return: True or False
+    """
+    return pathlib.PurePath(__file__).match('*.py')
+
+
+def is_suffix_file(file_name, suffix):
+    """
+    判断指定文件是否是符合指定后缀的文件
+    :param file_name: 文件名
+    :param suffix: 指定后缀
+    :return: True or False
+    """
+    return pathlib.PurePath(file_name).match('*.' + suffix)
+
+
+def combined_path():
+    """
+    在上上层目录下拼接路径
+    :return: 拼接结果
+    """
+    # return os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "1", "2", "3")
+    parts = ["1", "2", "3"]
+    return pathlib.Path.cwd().parent.parent.joinpath(*parts)
+
+
+def get_current_working_directory():
+    """
+    获取当前文件路径
+    """
+    print(os.path.dirname(__file__))
+    print(os.getcwd())
+    print(pathlib.Path.cwd())
+
+
+def get_upper_two_levels():
+    """
+    获取上上层目录
+    """
+    print(os.path.dirname(os.path.dirname(os.getcwd())))
+    print(pathlib.Path.cwd().parent.parent)     
+     
+     
 def get_file_path():
     """
     组合文件路径
