@@ -91,7 +91,16 @@ def fun(x):
     print({"a": 1, "b": 2}.get(x))  # 字典的get()方法
 
 
-# 10.
+# 10. 格式化打印 json 字符串或者字典
+import pprint
+my_mapping = [{'a': 23, 'b': 42, 'c': 0xc0ffee},{'a': 231, 'b': 42, 'c': 0xc0ffee}]
+pprint.pprint(my_mapping, width=4)
+
+import json
+my_mapping = [{'a': 23, 'b': 42, 'c': 0xc0ffee},{'a': 231, 'b': 42, 'c': 0xc0ffee}]
+print(json.dumps(my_mapping, indent=4, sort_keys=True))
+
+
 
 
 # =====================列表======================
