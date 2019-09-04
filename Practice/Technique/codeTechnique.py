@@ -170,6 +170,10 @@ from collections import OrderedDict
 list_get_only = [1, 2, 3, 4, 4, 4, 2]
 print(list(OrderedDict.fromkeys(list_get_only).keys()))  # [1, 2, 3, 4]
 
+# 默认字典排序
+x = OrderedDict(a=1,b=2,c=3)
+print(x)
+
 # 8. 对相同位置的列表数据进行相加---map()返回迭代器
 add_muti_list = list(map(lambda x, y: x + y, [1, 2, 3], [4, 5, 6]))
 print(add_muti_list)
@@ -459,3 +463,13 @@ print(basename, _, ext)  # head . txt
 # 7. json 校验格式
 import json
 print(json.dumps(data, index=2))
+my_mapping = [{'a': 23, 'b': 42, 'c': 0xc0ffee},{'a': 231, 'b': 42, 'c': 0xc0ffee}]
+print(json.dumps(my_mapping, indent=4, sort_keys=True))
+
+# 8. 格式化打印 json 字符串或者字典
+import pprint
+my_mapping = [{'a': 23, 'b': 42, 'c': 0xc0ffee},{'a': 231, 'b': 42, 'c': 0xc0ffee}]
+pprint.pprint(my_mapping, width=4)
+
+# 9. 查看对象所有属性
+print(dir("hello"))
