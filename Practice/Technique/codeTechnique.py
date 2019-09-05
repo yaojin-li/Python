@@ -301,6 +301,14 @@ for k in T:
     D[k] += 1
 print(D.items())  # dict_items([(1, 2), (2, 4), (3, 1), (4, 1)])
 
+# 9. itertools库 迭代遍历。
+# 例：查找所有组合
+from itertools import combinations
+teams = ["Packers", "49ers", "Ravens", "Patriots"]
+for num in range(1, len(teams)+1):
+    for team in combinations(teams, num):
+        print(team)
+
 # =====================类型转换======================
 # 1. 元组转字典
 tuple2list = ((1, 'a'), (2, 'b'))  # <class 'tuple'>
