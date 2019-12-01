@@ -2,10 +2,15 @@
  !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
  --------------------------------
- Description :
+ Description : 数据库相关操作
+ 1. 操作 MySQL
+ 2. 操作 Oracle
+ 3. 操作 MongoDB
+ 4. 导出 MySQL 数据至 excel
+ 5. 导出 Oracle 数据至 excel
  --------------------------------
  @Time    : 2019/6/7 15:45
- @File    : DB_operated.py
+ @File    : db_operate.py
  @Software: PyCharm
  --------------------------------
  @Author  : lixj
@@ -14,12 +19,42 @@
 
 
 import re
-import traceback
 import json
 import cx_Oracle
+import xlrd
+from pathlib import Path
+import pymysql
+import time
 
-dic = {'time': '2019-05-07 00:00:00', 'kcbName': '深圳市有方科技股份有限公司', 'listed': '深圳能源', 'code': '000027'}
 
+def create_mysql_connect():
+    conn = pymysql.connect(
+        host='localhost',
+        user='root',
+        passwd='123456789',
+        db='page_log',
+        port=3306,
+        charset='utf8'
+    )
+    # 获得游标
+    cur = conn.cursor()
+    conn.autocommit(1)
+    return cur, conn
+
+def close_connect(conn):
+    conn.commit()
+    conn.close()
+
+
+
+class Mysql():
+    pass
+
+class Oracle():
+    pass
+
+class Mongodb():
+    pass
 
 
 class Trans():

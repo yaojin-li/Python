@@ -2,7 +2,8 @@
  !/usr/bin/env python3.6
  -*- coding: utf-8 -*-
  --------------------------------
- Description :
+ Description : excel 相关操作
+ 1. 数据处理
  --------------------------------
  @Time    : 2019/8/3 12:07
  @File    : excel_operate.py

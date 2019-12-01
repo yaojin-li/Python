@@ -5,7 +5,7 @@
  @Description : python 技巧
     单独调试某几行代码段：Execute line in console(快捷键：Alt+Shift+E)
  --------------------------------------
- @File        : codeTechnique.py
+ @File        : code_technique.py
  @Time        : 2018/11/7 22:24
  @Software    : PyCharm
  --------------------------------------

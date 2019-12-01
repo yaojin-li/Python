@@ -8,7 +8,7 @@
  https://blog.csdn.net/xtfge0915/article/details/83479922
  --------------------------------
  @Time    : 2019/5/25 10:39
- @File    : wordOperate.py
+ @File    : word_operate.py
  @Software: PyCharm
  --------------------------------
  @Author  : lixj
@@ -24,11 +24,11 @@ from docx.enum.style import WD_STYLE_TYPE
 import os, zipfile, shutil
 
 
-class wordOper():
+class WordOperate():
     def __init__(self):
         pass
 
-    def showStyleInDoc(self):
+    def show_style(self):
         """
         查看word常用样式，在读取或写入时设置
         :return:
@@ -51,9 +51,9 @@ class wordOper():
             if s.type == WD_STYLE_TYPE.TABLE:
                 print("表格样式：", s.name)
 
-    def setStyleInDoc(self):
+    def set_style(self):
         """
-        word中设置样式 示例
+        word中设置样式
         :return:
         """
         document = Document()
@@ -84,13 +84,13 @@ class wordOper():
         #   将设置好段落格式的 style 运用到段落中
         p = document.add_paragraph('This is Heading, level 1', style=style)
 
-    def getContentFromDoc(self, docPath):
+    def get_head(self, doc_path):
         """
-        读取word内容
-        :param docPath:
+        读取 word 标题
+        :param doc_path: 文档路径
         :return:
         """
-        doc = Document(docPath)
+        doc = Document(doc_path)
         for p in doc.paragraphs:
             # 遍历1、2、3级标题
             if p.style.name == 'Heading 1':
@@ -105,15 +105,22 @@ class wordOper():
                 if re.match("^Heading \d+$", p.style.name):
                     print(p.text)
 
-            # 读取正文
-            for p in doc.paragraphs:
-                if p.style.name == 'Normal':
-                    print(p.text)
+    def get_content(self, doc_path):
+        """
+        读取 word 内容
+        :param doc_path: 文档路径
+        :return:
+        """
+        doc = Document(doc_path)
+        # 读取正文
+        for p in doc.paragraphs:
+            if p.style.name == 'Normal':
+                print(p.text)
 
-    def writeContentToDoc(self, resultDocPath):
+    def write_content(self, result_doc_path):
         """
         doc写入文件
-        :param resultDocPath:
+        :param result_doc_path: 写入 word 文档路径
         :return:
         """
         doc = Document()
@@ -137,60 +144,65 @@ class wordOper():
         # 写入图片
         doc.add_picture("imgName", width=Inches(1.5))  # 设置宽度
 
-        doc.save(resultDocPath)
+        doc.save(result_doc_path)
 
-    def getImgFromDoc(self, docdir):
+    def get_img_from_doc(self, doc_path):
         """
         从word中提取图片到对应目录img文件夹
         word转zip-提取midea中的word-复制到新目录并重命名同名为文件夹-zip还原成word，删除word文件夹
-        :param docdir: word路径
+        :param docdir: word 路径
         :return:
         """
         # 切换路径
-        absPath = os.path.abspath(os.path.dirname(docdir) + os.path.sep + ".")
-        os.chdir(absPath)
+        doc_abs_path = os.path.abspath(os.path.dirname(doc_path) + os.path.sep + ".")
+        os.chdir(doc_abs_path)
 
         # 遍历文件
-        for file in os.listdir(absPath):
-            if file.endswith(".docx"):  # 匹配docx文件
-                docName = file.split(".")  # 以“.”做成列表形式
-                os.rename(file, "{docName}.ZIP".format(docName=docName[0]))  # 重命名为ZIP格式
-                f = zipfile.ZipFile("{docName}.ZIP".format(docName=docName[0]), 'r')
+        for file in os.listdir(doc_abs_path):
+            if file.endswith("docx"):  # 匹配docx文件
+                doc_name = file.split(".")  # 以“.”做成列表形式
+                os.rename(file, "{docName}.ZIP".format(docName=doc_name[0]))  # 重命名为ZIP格式
+                f = zipfile.ZipFile("{docName}.ZIP".format(docName=doc_name[0]), 'r')
                 for file in f.namelist():
                     if "word" in file:
-                        f.extract(file)  # 将压缩包里的word文件夹解压出来
+                        f.extract(file)  # 将压缩包里的word文件夹解压
                 f.close()
-                oldImgDir = r"{absPath}\word\media".format(absPath=absPath)  # 定义图片文件夹
-                shutil.copytree(oldImgDir, "{absPath}\{docName}".format(absPath=absPath,
-                                                                        docName=docName[0]))  # 拷贝到新目录，名称为word文件的名字
-                os.rename("{docName}.ZIP".format(docName=docName[0]),
-                          "{docName}.docx".format(docName=docName[0]))  # 将ZIP名字还原为DOCX
-                shutil.rmtree("{absPath}\word".format(absPath=absPath))  # 删除word文件夹
+                old_img_dir = r"{absPath}\word\media".format(absPath=doc_abs_path)  # 定义图片文件夹
+                shutil.copytree(old_img_dir, "{absPath}\{docName}".format(absPath=doc_abs_path,
+                                                                          docName=doc_name[0]))  # 拷贝到新目录，名称为word文件的名字
+                os.rename("{docName}.ZIP".format(docName=doc_name[0]),
+                          "{docName}.docx".format(docName=doc_name[0]))  # 将ZIP名字还原为DOCX
+                shutil.rmtree("{absPath}\word".format(absPath=doc_abs_path))  # 删除word文件夹
             else:
                 print(file, "非docx文件！")
 
-    def word2pdf(self, dirPath):
+    def word_to_pdf(self, doc_path):
+        """
+        word 转换成 pdf
+        :param doc_path: docx 文件路径
+        :return:
+        """
         # 切换路径
-        absPath = os.path.abspath(os.path.dirname(dirPath) + os.path.sep + ".")
-        os.chdir(absPath)
-        dirlist = os.listdir(absPath)
-        for file in dirlist:
-            if file.endswith(".docx"):  # 匹配docx文件
+        doc_abs_path = os.path.abspath(os.path.dirname(doc_path) + os.path.sep + ".")
+        os.chdir(doc_abs_path)
+        dir_list = os.listdir(doc_abs_path)
+        for file in dir_list:
+            if file.endswith("docx"):  # 匹配docx文件
                 word = client.DispatchEx("Word.Application")
-                baseName = os.path.basename(file).split('.')[0]
-                worddoc = word.Documents.Open(os.path.abspath(file), ReadOnly=1)
-                worddoc.SaveAs(absPath + os.path.sep + str(baseName) + ".pdf", FileFormat=17)
-                worddoc.Close()
+                base_name = os.path.basename(file).split('.')[0]
+                word_file = word.Documents.Open(os.path.abspath(file), ReadOnly=1)
+                word_file.SaveAs(doc_abs_path + os.path.sep + str(base_name) + ".pdf", FileFormat=17)
+                word_file.Close()
             else:
                 print(file, "非docx文件！")
 
 
 if __name__ == '__main__':
-    rootDocPath = r'D:\ZX\temp\test\1\test.docx'
-    resultDocPath = r"C:\Users\Tebon\Desktop\test\result.docx"
-    wordOper = wordOper()
-    # wordOper.getContentFromDoc(rootDocPath)
-    # wordOper.writeContentToDoc("",resultDocPath)
-    # wordOper.showStyleInDoc()
-    # wordOper.getImgFromDoc(rootDocPath)
-    # wordOper.word2pdf(rootDocPath)
+    root_doc_path = r'D:\ZX\temp\test\1\test.docx'
+    result_doc_path = r"C:\Users\Tebon\Desktop\test\result.docx"
+    word_oper = WordOperate()
+    word_oper.get_content(root_doc_path)
+    word_oper.write_content(result_doc_path)
+    word_oper.show_style()
+    word_oper.get_img_from_doc(root_doc_path)
+    word_oper.word_to_pdf(root_doc_path)
