@@ -47,7 +47,7 @@ def ding_push_message():
 
 if __name__ == "__main__":
     # 请求的URL，WebHook地址
-    web_url = "https://oapi.dingtalk.com/robot/send?access_token=1789e4d28b7cd0da2bc4c0fad04633bc830ca9a1c12ed3b8f31a82b53f50999b"
+    web_url = "https://oapi.dingtalk.com/robot/send?access_token=xxxx"
     # 构建请求数据
     msg = "钉钉，测试消息。。。"
 
