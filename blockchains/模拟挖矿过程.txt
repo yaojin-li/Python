@@ -1,0 +1,344 @@
+
+模拟挖矿的整体过程：
+1. 访问链接 http://192.168.2.111:5000/chain，查看创世区块的主要内容，如下：
+其中，包括创世区块的索引为1，设定的hash、proof，时间戳，为空的交易记录。
+{
+  "chain": [
+    {
+      "index": 1,
+      "previous_hash": "1",
+      "proof": 100,
+      "timestamp": 1524207612.618698,
+      "transactions": []
+    }
+  ],
+  "length": 1
+}
+
+2，访问链接 http://192.168.2.111:5000/mine，查看新建区块的主要内容，如下：
+其中，包括新建区块的索引为2，新加入的区块消息"New block forged"，上一个区块的hash值，计算出当前区块的算力（工作量证明）proof=35293，
+交易记录为transactions，由于只是模拟新建区块的情况，没有添加具体的交易内容，只有完成挖矿对矿工的奖励交易信息，即sender=0的交易记录。
+{
+  "index": 2,
+  "previous_hash": "b3bdbdb4b95b3f7a96b17bf3843af0ac22ebabc993490b594ccf10d82fa90b2e",
+  "proof": 35293,
+  "timestamp": 1524207627.0737095,
+  "transactions": [
+    {
+      "amount": 1,
+      "recipient": "fc30a002579d4c159538353a9a267d97",
+      "sender": "0"
+    }
+  ]
+}
+
+3. 再次访问链接 http://192.168.2.111:5000/chain，再次查看区块链的主要内容，结果如下：
+可以看到，此时的区块链已经包含创世区块（index=1）以及刚添加的区块（index=2），区块链的长度"length": 2
+{
+  "chain": [
+    {
+      "index": 1,
+      "previous_hash": "1",
+      "proof": 100,
+      "timestamp": 1524207612.618698,
+      "transactions": []
+    },
+    {
+      "index": 2,
+      "previous_hash": "b3bdbdb4b95b3f7a96b17bf3843af0ac22ebabc993490b594ccf10d82fa90b2e",
+      "proof": 35293,
+      "timestamp": 1524207627.0737095,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "fc30a002579d4c159538353a9a267d97",
+          "sender": "0"
+        }
+      ]
+    }
+  ],
+  "length": 2
+}
+
+4. 访问链接 http://192.168.2.111:5000/transactions/new，即新建交易，结果如下：
+{
+  "message": "Transaction will be added to block 3"
+}
+即新建的交易信息会被添加到block 3 的区块中包装。
+
+5. 继续访问链接 http://192.168.2.111:5000/transactions/new，再次新建交易，结果如下：
+{
+  "message": "Transaction will be added to block 3"
+}
+即新建的不同的交易信息，会被再次添加到block 3 的区块中包装。
+
+6. 访问链接 http://192.168.2.111:5000/mine，将第四步、第五步生成的交易信息添加到区块中，即block 3 中。结果如下：
+其中，包括新建区块的索引为3，新加入的区块消息"New block forged"。上一个区块的hash值，计算出当前区块的算力（工作量证明）proof=35089，
+此时的交易记录中，包含第四步、第五步生成的交易信息，即transactions中的前两个交易记录。
+最后也包含系统对矿工的奖励交易信息，即sender=0交易记录。
+{
+  "index": 3,
+  "message": "New block forged",
+  "previous_hash": "cc8e7dfd9c448a401468384a83667669bcd8f654722882cd0106c26de5c96fbe",
+  "proof": 35089,
+  "transactions": [
+    {
+      "amount": 5,
+      "recipient": "456",
+      "sender": "123"
+    },
+    {
+      "amount": 5,
+      "recipient": "456",
+      "sender": "123"
+    },
+    {
+      "amount": 1,
+      "recipient": "fc30a002579d4c159538353a9a267d97",
+      "sender": "0"
+    }
+  ]
+}
+
+7. 访问链接 http://192.168.2.111:5000/chain，查看此时的区块链的内容，结果如下：
+可以看到，经过创建创世区块（index=1）、添加无交易信息的空区块（index=2）、添加两个交易信息的区块（index=3），整个区块链的长度达到3.
+{
+  "chain": [
+    {
+      "index": 1,
+      "previous_hash": "1",
+      "proof": 100,
+      "timestamp": 1524207612.618698,
+      "transactions": []
+    },
+    {
+      "index": 2,
+      "previous_hash": "b3bdbdb4b95b3f7a96b17bf3843af0ac22ebabc993490b594ccf10d82fa90b2e",
+      "proof": 35293,
+      "timestamp": 1524207627.0737095,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "fc30a002579d4c159538353a9a267d97",
+          "sender": "0"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "previous_hash": "cc8e7dfd9c448a401468384a83667669bcd8f654722882cd0106c26de5c96fbe",
+      "proof": 35089,
+      "timestamp": 1524207930.704413,
+      "transactions": [
+        {
+          "amount": 5,
+          "recipient": "456",
+          "sender": "123"
+        },
+        {
+          "amount": 5,
+          "recipient": "456",
+          "sender": "123"
+        },
+        {
+          "amount": 1,
+          "recipient": "fc30a002579d4c159538353a9a267d97",
+          "sender": "0"
+        }
+      ]
+    }
+  ],
+  "length": 3
+}
+
+# 添加路由解决冲突问题
+8. 在三个文件（blockchain.py, blockchain_node1.py, blockchain_node2.py）中，设定对应的节点及其端口号。
+在pycharm中，依次运行三个文件，结果如下：
+ * Running on http://192.168.2.111:5000/ (Press CTRL+C to quit)
+ * Running on http://192.168.2.111:5001/ (Press CTRL+C to quit)
+ * Running on http://192.168.2.111:5002/ (Press CTRL+C to quit)
+
+9. 在Postman中依次打开三个窗口，模拟三个节点的发送请求。
+http://192.168.2.111:5000/chain  GET方式；
+http://192.168.2.111:5001/chain  GET方式；
+http://192.168.2.111:5002/chain  GET方式；
+
+10. 在第一个窗口（5001）中，模拟挖出三个区块，即 http://192.168.2.111:5001/mine GET方式 发送三次请求。
+在访问http://192.168.2.111:5001/chain，得到结果如下：
+{
+  "chain": [
+    {
+      "index": 1,
+      "previous_hash": "1",
+      "proof": 100,
+      "timestamp": 1524636695.0677617,
+      "transactions": []
+    },
+    {
+      "index": 2,
+      "previous_hash": "413186ba30bc4706a94212b8837afc9a06064eabeb8d999d53f74b0280c9949a",
+      "proof": 35293,
+      "timestamp": 1524636713.2794747,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "db044e87361d42d6bb36a118da23cc4a",
+          "sender": "0"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "previous_hash": "5adc8d4cef47df9969d0d62a99290e5b0779b57b8c3582031974bf102b422f2c",
+      "proof": 35089,
+      "timestamp": 1524636714.5593677,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "db044e87361d42d6bb36a118da23cc4a",
+          "sender": "0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "previous_hash": "3b552f1fbc39f5cd8a8327d41351d0c083211e7943b2f8ef97b6155654912898",
+      "proof": 119678,
+      "timestamp": 1524636715.4139643,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "db044e87361d42d6bb36a118da23cc4a",
+          "sender": "0"
+        }
+      ]
+    }
+  ],
+  "length": 4
+}
+
+11. 在第二个窗口（5002）中，模拟挖出两个区块，即 http://192.168.2.111:5002/mine GET方式 发送两次请求。
+在访问http://192.168.2.111:5002/chain，得到结果如下：
+{
+  "chain": [
+    {
+      "index": 1,
+      "previous_hash": "1",
+      "proof": 100,
+      "timestamp": 1524636760.722611,
+      "transactions": []
+    },
+    {
+      "index": 2,
+      "previous_hash": "acb63047662a741fda3195fc765b6d2fb5c124e5c4e90172ec9b437a148969bf",
+      "proof": 35293,
+      "timestamp": 1524636768.9283345,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "6cbb4b7f8738471b9c33b0db0bddf8d8",
+          "sender": "0"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "previous_hash": "d14b77ee468e18f30da685bf7e8caa9ff201b20bd791d6174d7eaba898f59013",
+      "proof": 35089,
+      "timestamp": 1524636769.9380262,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "6cbb4b7f8738471b9c33b0db0bddf8d8",
+          "sender": "0"
+        }
+      ]
+    }
+  ],
+  "length": 3
+}
+
+12. 在第三个窗口（5003）中，模拟挖出一个区块，即 http://192.168.2.111:5003/mine GET方式 发送一次请求。
+在访问http://192.168.2.111:5003/chain，得到结果如下：
+{
+  "chain": [
+    {
+      "index": 1,
+      "previous_hash": "1",
+      "proof": 100,
+      "timestamp": 1524636812.4287012,
+      "transactions": []
+    },
+    {
+      "index": 2,
+      "previous_hash": "257905fe9635c5c301ab08e43a6fb7d35302714d2632ab544731fa68556dac1e",
+      "proof": 35293,
+      "timestamp": 1524636819.811855,
+      "transactions": [
+        {
+          "amount": 1,
+          "recipient": "5743e8ae7f744261a5d394b67d9b528e",
+          "sender": "0"
+        }
+      ]
+    }
+  ],
+  "length": 2
+}
+
+13. 此时，5001端口挖到三个区块，5002端口挖到两个区块，5003端口挖到一个区块。
+即节点5001对应的区块链是最长的链，节点5002对应的区块链次之，节点5003对应的区块链最短。
+将三个节点进行注册，添加到节点nodes = set()中。
+在第一个窗口（5001），访问连接 http://192.168.2.111:5001/nodes/register POST方式，注册当前的节点，结果如下：
+{
+  "message": "New nodes have been added",
+  "total_nodes": [
+    "192.168.2.111:5003",
+    "192.168.2.111:5002",
+    "192.168.2.111:5001"
+  ]
+}
+在第二个窗口（5002），访问连接 http://192.168.2.111:5002/nodes/register POST方式，注册当前的节点，结果如下：
+{
+  "message": "New nodes have been added",
+  "total_nodes": [
+    "192.168.2.111:5001",
+    "192.168.2.111:5002",
+    "192.168.2.111:5003"
+  ]
+}
+在第三个窗口（5003），访问连接 http://192.168.2.111:5003/nodes/register POST方式，注册当前的节点，结果如下：
+{
+  "message": "New nodes have been added",
+  "total_nodes": [
+    "192.168.2.111:5003",
+    "192.168.2.111:5001",
+    "192.168.2.111:5002"
+  ]
+}
+
+14. 验证共识算发，用最长的区块链替换短的链，操作如下：
+在第二个窗口（5002），访问连接 http://192.168.2.111:5002/nodes/resolve GET方式，检查当前的节点，结果如下：
+
+
+
+
+
+
+
+
+注：
+1. 在交易的模拟过程中，设定的交易信息静态消息，主要内容为：
+{
+  "amount": 5,
+  "recipient": "456",
+  "sender": "123"
+}
+包括：交易的数量、发送方、接收方。
+所以在区块链的区块中，交易内容相同。
+在request.get_json()中，无接受数据，此点尚且作为遗留问题。
+
+2. 在模拟挖矿的过程中，前一个区块的工作量证明last_proof，与本区块的工作量证明proof，共同组成的字符串的hash值hash(last_proof proof)，
+以其是否以四个零开头，作为是否为合格区块的标志。即valid_proof()函数的作用。
+此处慎重调整开头零的个数，当添加两个零，即判定是否以六个零作为开头时，计算的工作量证明为49259370（四个零开头为35089），工作量提升了1403.84倍。
+
