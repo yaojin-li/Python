@@ -17,7 +17,7 @@
  12.四数取三，排列组合
  --------------------------------
  @Time    : 2018/11/26 20:30
- @File    : classicAlgorithmQuestions.py
+ @File    : base_algorithm_que.py
  @Software: PyCharm
  --------------------------------
  @Author  : lixj
