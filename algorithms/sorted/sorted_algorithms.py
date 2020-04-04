@@ -9,7 +9,7 @@
  4.
  --------------------------------
  @Time    : 2019/7/30 21:51
- @File    : SortedAlgorithms.py
+ @File    : sorted_algorithms.py
  @Software: PyCharm
  --------------------------------
  @Author  : lixj
